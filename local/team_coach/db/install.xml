@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/team_coach/db" VERSION="20230605" COMMENT="XMLDB file for Moodle local/team_coach"
+<XMLDB PATH="local/team_coach/db" VERSION="20230606" COMMENT="XMLDB file for Moodle local/team_coach"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -11,7 +11,7 @@
         <FIELD NAME="url" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="name" TYPE="char" LENGTH="200" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="theme_color" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="logo_path" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="fileid" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="lang" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="signup" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="time_created" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>

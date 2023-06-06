@@ -26,6 +26,7 @@
 require_once('../../config.php');
 require_once('form.php');
 global $CFG, $PAGE;
+$id = optional_param('id', 0, PARAM_INT);
 require_login();
 $PAGE->set_url('/local/team_coach/index.php');
 $PAGE->set_context(context_system::instance());
@@ -37,36 +38,87 @@ $PAGE->requires->js('/local/team_coach/amd/src/theme_color.js');
 echo $OUTPUT->header();
 echo $OUTPUT->heading('Theme');
 //Instantiate simplehtml_form. 
-$mform = new theme_form();
+$mform = new theme_form($CFG->wwwroot.'/local/team_coach/index.php?id='.$id);
 
 //Form processing and displaying is done here.
 if ($mform->is_cancelled()) {
-  redirect($CFG->wwwroot.'/local/team_coach/index.php');
-    //Handle form cancel operation, if cancel button is present on form.
+  redirect($CFG->wwwroot . '/local/team_coach/index.php');
+  //Handle form cancel operation, if cancel button is present on form.
 } else if ($fromform = $mform->get_data()) {
 
+  $language = $fromform->lang;
+  $fromform->lang = implode(",",$language);
   $new_name = $mform->get_new_filename('logo_path');
-  $path= 'logos/'.$new_name;
-  $fullpath = "/local/team_coach/". $path;
-  $success = $mform->save_file('logo_path', $path, true);  // save file contents
+  if ($new_name) {
+    $path = 'logos/' . $new_name;
+    $fullpath = "/local/team_coach/" . $path;
+    $success = $mform->save_file('logo_path', $path, true);  // save file contents.
+    $filename_sep = explode(".", $new_name);
+  
+    $context = \context_user::instance($USER->id);
+  
+    $file_record = new stdClass();
+    $file_record->contextid = $context->id; // ID of context.
+    $file_record->component = 'user'; // Component name.
+    $file_record->filearea = 'draft'; // File area name.
+    $file_record->itemid = 0; // Item ID (usually related to the table).
+    $file_record->filepath = '/'; // File path within the file area.
+    $file_record->filename = $new_name; // Filename.
 
-  $fromform->userid = $USER->id;
-  $fromform->logo_path = $fullpath;
-  $fromform->time_created = time();
+    // Create a file record
+    $fs = get_file_storage();
+    $testdocx = $fs->get_file($context->id, 'user', 'draft', 0, '/', $new_name);
+    if (!$testdocx) {
+      // Save the file record in the database
+      $id = $fs->create_file_from_pathname($file_record, $path);
+      $fileid = $id->get_id(); // $storedFile is the object you provided
+  
+    }
+    else {
+      $file_record->filename = $filename_sep[0]."_".time().".".$filename_sep[1]; // Filename
+          // Save the file record in the database.
+          $id = $fs->create_file_from_pathname($file_record, $path);
+          $fileid = $id->get_id(); // $storedFile is the object you provided.
+      
+    }
+  }
+
+  if ($fromform->themeid) {  // if we edit the theme.
+    $fromform->id = $fromform->themeid;
+    if ($fileid) {
+      $fromform->fileid = $fileid;
+    }
+    $fromform->time_modified = time();
+   $updated = $DB->update_record('theme_detail', $fromform, $bulk=false);
+    if ($updated) {
+      redirect($CFG->wwwroot . '/local/team_coach/team_list.php', 'Record updated Successfully', null, \core\output\notification::NOTIFY_INFO);
+    }
+  }
+  else {  // create a new theme.
+  
+    $fromform->userid = $USER->id;
+    $fromform->fileid = $fileid;
+    $fromform->time_created = time();
+  
+    $insert_record = $DB->insert_record('theme_detail', $fromform, $returnid = true, $bulk = false);
+  }
   //In this case you process validated data. $mform->get_data() returns data posted in form.
- $insert_record = $DB->insert_record('theme_detail', $fromform, $returnid=true, $bulk=false);
- if ($insert_record) {
-  redirect($CFG->wwwroot.'/local/team_coach/index.php', 'Record Created Successfully', null, \core\output\notification::NOTIFY_INFO);
+  if ($insert_record) {
 
- }
+    if (file_exists($path)) {
+      unlink($path);
+    }
+    redirect($CFG->wwwroot . '/local/team_coach/index.php', 'Record Created Successfully', null, \core\output\notification::NOTIFY_INFO);
+  }
 } else {
   // this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed.
   // Or on the first display of the form.
-
+if ($id) {
+$toform = $DB->get_record('theme_detail',['id' =>$id]);
+$mform->set_data($toform);
+}
   //Set default data (if any).
-  $mform->set_data($toform);
-  //displays the form
+  //displays the form.
   $mform->display();
 }
 echo $OUTPUT->footer();
-?>

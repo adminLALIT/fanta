@@ -95,7 +95,7 @@ class editor_testcase extends advanced_testcase {
         ];
         // Load the h5p file into DB.
         $fs = get_file_storage();
-        $file = $fs->create_file_from_pathname($filerecord, $path);
+        $file = $fs->($filerecord, $path);
         // Make the URL to pass to the WS.
         $url = \moodle_url::make_pluginfile_url(
             $syscontext->id,

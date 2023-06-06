@@ -29,29 +29,40 @@ class theme_form extends moodleform {
     //Add elements to form
     public function definition() {
         global $CFG,$user;
-       
+        $id = optional_param('id', 0, PARAM_INT);
+     
+
         $mform = $this->_form; // Don't forget the underscore! 
+        $accept_types = ['.png','.jpg','.gif','.svg','.jpeg','.ico'];
+        $mform->addElement('hidden', 'themeid', $id);
 
         $mform->addElement('text', 'url', get_string('url','local_team_coach')); 
         $mform->addRule('url', get_string('required'), 'required', null, 'server');
 
         $mform->addElement('text', 'name', get_string('name','local_team_coach')); 
         $mform->addRule('name', get_string('required'), 'required', null, 'server');
-        $mform->addRule('name', get_string('required'), 'lettersonly', null, 'server');
+        // $mform->addRule('name', get_string('required'), 'lettersonly', null, 'server');
 
-        $mform->addElement('filepicker', 'logo_path', get_string('logo','local_team_coach'), null, array('maxbytes' => 200, 'accepted_types' => ['.jpeg', '.png']));
-        $mform->addRule('logo_path', get_string('required'), 'required', null, 'server');
+        $mform->addElement('filepicker', 'logo_path', get_string('logo','local_team_coach'), null, array('maxbytes' => 200, 'accepted_types' => $accept_types));
+        if (!$id) {
+            # code...
+            $mform->addRule('logo_path', get_string('required'), 'required', null, 'server');
+        }
 
         $mform->addElement('text', 'theme_color', get_string('theme_color','local_team_coach')); 
         $mform->addRule('theme_color', get_string('required'), 'required', null, 'server');
         $purpose = user_edit_map_field_purpose($user->id, 'lang');
         $translations = get_string_manager()->get_list_of_translations();
-        $mform->addElement('select', 'lang', get_string('preferredlanguage'), $translations, $purpose);
+
+        $select = $mform->addElement('select', 'lang', get_string('preferredlanguage'), $translations, $purpose);
         $lang = empty($user->lang) ? $CFG->lang : $user->lang;
         $mform->setDefault('lang', $lang);
         $mform->addRule('lang', get_string('required'), 'required', null, 'server');
+        $select->setMultiple(true);
+        $select->setSelected(array('val1', 'val2'));
 
-        $mform->addElement('select', 'signup', get_string('login_signup','local_team_coach'),[''=>'select','1'=>'Enable','2'=>'Disable']); 
+         $mform->addElement('select', 'signup', get_string('login_signup','local_team_coach'),[''=>'select','1'=>'Enable','2'=>'Disable']); 
+
         $mform->addRule('signup', get_string('required'), 'required', null, 'server');
         $this->add_action_buttons();
          
@@ -63,15 +74,27 @@ class theme_form extends moodleform {
         $validated = array();
         $data = (object)$data;
         $data->name = trim($data->name);
-
-        if ($DB->record_exists('theme_detail', array('name' => $data->name, 'userid' => $USER->id))) {
-            $validated['name'] = get_string('nameexists','local_team_coach');
+        if (!$data->themeid) {
+            if ($DB->record_exists('theme_detail', array('name' => $data->name, 'userid' => $USER->id))) {
+                $validated['name'] = get_string('nameexists','local_team_coach');
+            }
+            if ($DB->record_exists('theme_detail', array('url' => $data->url, 'userid' => $USER->id))) {
+                $validated['url'] = get_string('urlexists','local_team_coach');
+            }
         }
-        if ($DB->record_exists('theme_detail', array('url' => $data->url, 'userid' => $USER->id))) {
-            $validated['url'] = get_string('urlexists','local_team_coach');
+        else {
+            if (!$DB->record_exists('theme_detail', array('name' => $data->name, 'userid' => $USER->id, 'id'=> $data->themeid))) {
+                if ($DB->record_exists('theme_detail', array('name' => $data->name, 'userid' => $USER->id))) {
+                    $validated['name'] = get_string('nameexists','local_team_coach');
+                }
+            }
+
+            if (!$DB->record_exists('theme_detail', array('url' => $data->url, 'userid' => $USER->id, 'id'=> $data->themeid))) {
+                if ($DB->record_exists('theme_detail', array('url' => $data->url, 'userid' => $USER->id))) {
+                    $validated['url'] = get_string('nameexists','local_team_coach');
+                }
+            }
         }
         return $validated;
     }
 }
-
-?>
