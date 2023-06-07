@@ -22,17 +22,20 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-//moodleform is defined in formslib.php
+// moodleform is defined in formslib.php
 require_once("$CFG->libdir/formslib.php");
 
 class theme_form extends moodleform {
-    //Add elements to form
+    // Add elements to form
     public function definition() {
         global $CFG,$user;
         $id = optional_param('id', 0, PARAM_INT);
      
-
+        
         $mform = $this->_form; // Don't forget the underscore! 
+        $editoroptions = $this->_customdata['editoroptions'];
+        list($instance) = $this->_customdata;        
+
         $accept_types = ['.png','.jpg','.gif','.svg','.jpeg','.ico'];
         $mform->addElement('hidden', 'themeid', $id);
 
@@ -43,7 +46,7 @@ class theme_form extends moodleform {
         $mform->addRule('name', get_string('required'), 'required', null, 'server');
         // $mform->addRule('name', get_string('required'), 'lettersonly', null, 'server');
 
-        $mform->addElement('filepicker', 'logo_path', get_string('logo','local_team_coach'), null, array('maxbytes' => 200, 'accepted_types' => $accept_types));
+        $mform->addElement('filemanager', 'logo_path', get_string('logo','local_team_coach'), null, $editoroptions);
         if (!$id) {
             # code...
             $mform->addRule('logo_path', get_string('required'), 'required', null, 'server');
@@ -67,18 +70,19 @@ class theme_form extends moodleform {
         $this->add_action_buttons();
          
     }
-    //Custom validation should be added here
+    // Custom validation should be added here.
     function validation($data, $files) {
         global $CFG, $DB, $USER;
 
         $validated = array();
         $data = (object)$data;
         $data->name = trim($data->name);
+        $url_column = $DB->sql_compare_text('url');
         if (!$data->themeid) {
             if ($DB->record_exists('theme_detail', array('name' => $data->name, 'userid' => $USER->id))) {
                 $validated['name'] = get_string('nameexists','local_team_coach');
             }
-            if ($DB->record_exists('theme_detail', array('url' => $data->url, 'userid' => $USER->id))) {
+            if ($DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id))) {
                 $validated['url'] = get_string('urlexists','local_team_coach');
             }
         }
@@ -89,9 +93,9 @@ class theme_form extends moodleform {
                 }
             }
 
-            if (!$DB->record_exists('theme_detail', array('url' => $data->url, 'userid' => $USER->id, 'id'=> $data->themeid))) {
-                if ($DB->record_exists('theme_detail', array('url' => $data->url, 'userid' => $USER->id))) {
-                    $validated['url'] = get_string('nameexists','local_team_coach');
+            if (!$DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id, 'id'=> $data->themeid))) {
+                if ($DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id))) {
+                    $validated['url'] = get_string('urlexists','local_team_coach');
                 }
             }
         }

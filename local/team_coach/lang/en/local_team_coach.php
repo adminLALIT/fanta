@@ -32,4 +32,11 @@ $string['login_signup']= 'Login Signup';
 $string['logo']= 'Logo';
 $string['nameexists']= 'Name exists';   
 $string['urlexists']= 'Url exists';   
+$string['select_theme']= 'Select Theme';   
+$string['menu_name']= 'Menu Name';   
+$string['menu_title']= 'Menu Title';   
+$string['menu_icon']= 'Menu Icon';   
+$string['menu_url']= 'Menu Url';   
+$string['menu_index']= 'Menu Index';   
+$string['number_error']= 'Only numbers are allowed';   
 ?>

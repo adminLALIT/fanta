@@ -44,10 +44,21 @@ class team_list_form extends table_sql {
      */
     function col_logo($values) {
         global $CFG, $DB;
+        // $image = $DB->get_record('files',['id'=>$values->fileid]);
+        // $imageurl = moodle_url::make_draftfile_url($image->itemid, $image->filepath, $image->filename);
+        $context = context_system::instance();
+        $fs = get_file_storage();
 
-        $image = $DB->get_record('files',['id'=>$values->fileid]);
-        $imageurl = moodle_url::make_draftfile_url($image->itemid, $image->filepath, $image->filename);
-        return html_writer::div("<img src='$imageurl' width='80' height='80'>");
+        // get the image
+        $files = $fs->get_area_files($context->id, 'local_team_coach', 'image', $values->id, "timemodified", false);
+
+            foreach ($files as $file) {
+                $filename = $file->get_filename();
+                $mimetype = $file->get_mimetype();
+                $image = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/local_team_coach/image/'.$values->id.'/'.$filename);  
+            }
+            return html_writer::div("<img src='$image' width='80' height='80'>");
+        
     }
 
      /**

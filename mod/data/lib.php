@@ -4150,7 +4150,7 @@ function data_get_advanced_search_sql($sort, $data, $recordids, $selectdata, $so
             }
         } else {
             $sortfield = data_get_field_from_id($sort, $data);
-            $sortcontent = $DB->sql_compare_text('c.' . $sortfield->get_sort_field());
+            $sortcontent = $DB->_text('c.' . $sortfield->get_sort_field());
             $sortcontentfull = $sortfield->get_sort_sql($sortcontent);
         }
 
