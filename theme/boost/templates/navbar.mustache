@@ -38,6 +38,10 @@
 
         <ul class="navbar-nav d-none d-md-flex">
             <!-- custom_menu -->
+            {{#menus}}
+            <li  class="nav-item"><a class="nav-item nav-link" href="{{{config.wwwroot}}}/{{menuurl}}" title="{{menuname}}">{{menuname}}</a></li>
+            {{/menus}}
+
             {{{ output.custom_menu }}}
             <!-- page_heading_menu -->
             {{{ output.page_heading_menu }}}

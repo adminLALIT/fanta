@@ -38,5 +38,9 @@ $string['menu_title']= 'Menu Title';
 $string['menu_icon']= 'Menu Icon';   
 $string['menu_url']= 'Menu Url';   
 $string['menu_index']= 'Menu Index';   
-$string['number_error']= 'Only numbers are allowed';   
+$string['banner_title']= 'Banner Title';    
+$string['banner_desc']= 'Banner description';   
+$string['banner_img']= 'Banner Image';    
+$string['bannertitleexists']= 'Banner Title exists';     
+ 
 ?>

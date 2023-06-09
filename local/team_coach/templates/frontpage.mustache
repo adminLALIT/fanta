@@ -1,0 +1,476 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_boost/columns2
+
+    Admin time setting template.
+
+    Boost 2 column layout template.
+
+    Context variables required for this template:
+    * sitename - The name of the site
+    * output - The core renderer for the page
+    * bodyattributes - attributes for the body tag as a string of html attributes
+    * sidepreblocks - HTML for the blocks
+    * hasblocks - true if there are blocks on this page
+    * navdraweropen - true if the nav drawer should be open on page load
+    * regionmainsettingsmenu - HTML for the region main settings menu
+    * hasregionmainsettingsmenu - There is a region main settings menu on this page.
+
+    Example context (json):
+    {
+        "sitename": "Moodle",
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Test page",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Headings make html validators happier</h1>"
+         },
+        "bodyattributes":"",
+        "sidepreblocks": "<h2>Blocks html goes here</h2>",
+        "hasblocks":true,
+        "navdraweropen":true,
+        "regionmainsettingsmenu": "",
+        "hasregionmainsettingsmenu": false
+    }
+}}
+
+
+<body >
+
+
+<div id="page-wrapper" class="d-print-block">
+
+    
+
+
+
+<!--<script>
+    
+    $(function () {
+    var fx = function fx() {
+    $(".stat-number").each(function (i, el) {
+        var data = parseInt(this.dataset.n, 10);
+        var props = {
+            "from": {
+                "count": 0
+            },
+                "to": { 
+                "count": data
+            }
+        };
+        $(props.from).animate(props.to, {
+            duration: 4000 * 1,
+            step: function (now, fx) {
+                $(el).text(Math.ceil(now));
+            },
+            complete:function() {
+                if (el.dataset.sym !== undefined) {
+                  el.textContent = el.textContent.concat(el.dataset.sym)
+                }
+            }
+        });
+    });
+    };
+    
+    var reset = function reset() {
+        //console.log($(this).scrollTop())
+        if ($(this).scrollTop() > 90) {
+            $(this).off("scroll");
+          fx()
+        }
+    };
+    
+    $(window).on("scroll", reset);
+});
+</script>-->
+
+		<!-- Slider Area -->
+		<section class="slider" style='margin-top:110px;'>
+			<div class="hero-slider">
+					
+			</div>
+		</section>
+		<!--/ End Slider Area -->
+
+
+		<!-- Start Schedule Area -->
+		<section class="schedule">
+			<div class="container">
+				<div class="schedule-inner">
+					<div class="row">
+                    
+						<div class="col-lg-4 col-md-6 col-12 ">
+							<!-- single-schedule -->
+							<div class="single-schedule {{{ active }}}">
+								<div class="inner">
+									<div class="single-content">										
+										<h4></h4>
+										<p> </p>
+									
+								</div>
+                                <div>
+                                	<a href="">MORE INFO<i class="fa fa-long-arrow-right"></i></a>
+                                 </div>
+								</div>
+							</div>
+						</div>
+                       
+					</div>
+				</div>
+		  </div>
+		</section>
+		<!--/End Start schedule Area -->
+
+
+                 
+
+		
+		<!-- Start Why choose -->
+	<!--	<section class="why-choose" >
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="section-title">
+                                                <h2 style="color: #ea7d1e;font-size: 26px; text-transform: none;">PentaTr@ining: ‘HIV & Other Congenital Infections’</h2>
+						
+						</div>
+						 <p style="margin-top: -40px;
+    margin-bottom: 72px;
+    text-align: center;">PentaTr@ining (formerly ‘Tr@inforPedHIV’) started for the first time in 2005, in the framework of the partnership between Penta and the European Society for Paediatric Infectious Diseases (ESPID). It is a training programme for healthcare professionals caring for children, adolescents and pregnant women living with HIV and congenital infections. </p>
+					</div>
+				</div>
+<div class="container">
+						<div class="row choose-left">
+						<h3>Who We Are</h3>
+						
+						</div>
+				
+					
+						
+						<div class="row choose-left">
+							
+							
+								<div class="col-lg-5" style="padding-left:0px">									
+									
+									<p class="frontp">PentaTr@ining is unique in its learning system as it 
+incorporates an e-learning section into the teaching. 
+At the beginning, the course was designed to 
+address topics related to the treatment of children 
+with HIV/AIDS in Western and Eastern Europe, 
+but the great success of the first experiences led 
+the organisers to readapt and export it also to low 
+and middle income countries, in a variety of 
+international settings including Africa, Asia and 
+Latin America. This has given the chance to many 
+more clinicians and healthcare professionals to 
+meet, share knowledge and benefit from this 
+experience.<br>Since 2008 it has been part of the Oxford Paediatric Infectious Diseases Diploma.
+</p>
+
+								</div>
+								
+								
+								
+<div class="col-lg-7 col-12">
+					
+						<div class="choose-right">
+							<div class="video-image">
+								<img src="theme/boost/templates/img/who-are-you.jpg" alt="#">
+
+							</div>
+						</div>
+					 
+					</div>
+					</div>
+						
+					</div>
+					
+					</div>
+			
+			
+			
+			<div class="container frontconttop">
+			 
+			    <div class="frontpentatxt">PentaTr@ining <span style="font-weight:normal">2005 - present</span></div>
+<div class="row frontcontrow">
+
+<div class="col-md-3">
+<div class="frontnumcount">
+
+        <div class="stat-number frontnumcount" style="color: #ec8a38;font-weight:bold" data-n="66">
+                  <span class="Single" >70</span>
+                </div>
+    </div>
+<h6 style="text-align: center;    font-size: 28px;"><strong><span style="color: #ec8a38;">TRAINING COURSES</span></strong></h6>
+</div>
+
+<div class="col-md-3">
+<div class="frontnumcount">   <div class="stat-number frontnumcount" style="color: #ec8a38;font-weight:bold" data-n="36">
+                  <span class="Single" >36</span>
+                </div></div>
+<h6 style="text-align: center;    font-size: 28px;"><strong><span style="color: #ec8a38;">COUNTRIES</span></strong></h6>
+</div>
+
+<div class="col-md-3">
+<div class="frontnumcount">   <div class="stat-number frontnumcount" style="color: #ec8a38;font-weight:bold" data-n="15">
+                  <span class="Single" >16</span>
+                </div></div>
+<h6 style="text-align: center;    font-size: 28px;"><strong><span style="color: #ec8a38;">YEARS OF ACTIVITY</span></strong></h6>
+</div>
+
+<div class="col-md-3">
+<div class="frontnumcount">   <div class="stat-number frontnumcount" style="color: #ec8a38;font-weight:bold" data-n="4000">
+                  <span class="Single" >4500</span>
+                </div> <span style="    float: right;
+    margin-top: -54px;
+    margin-right: -6px;
+    color: #ec8a38;">+</span> </div>
+<h6 style="text-align: center;    font-size: 28px;"><strong><span style="color: #ec8a38;">HEALTHCARE WORKERS TRAINED
+</span></strong></h6>
+</div>
+
+</div>
+</div>
+
+			
+		</section> -->
+		
+		
+		
+		
+		<!-- End Why choose -->
+
+
+
+<!-- partial:index.partial.html -->
+<section class="testimonials-section">
+	<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="testimonials-title">
+							<h2></h2>
+							<img src="theme/boost/templates/img/section-img.png" alt="#">
+
+						</div>
+					</div>
+				</div>
+		<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 testimonials">
+		
+
+		<div class="col-center m-auto">
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+ 
+				<!-- Wrapper for carousel items -->
+				<div class="carousel-inner">
+                      
+                    <div class="item carousel-item {{{active}}} ">
+                        <p class="testimonial">{{{caption}}}</p>
+                        <p class="overview"><b>{{{ testimonialheading }}}</b></p>
+                        <h6 class="company-name" style="color: #d4d4d4;">{{{ testimonialsubheading }}}</h6>
+                    </div>
+                 
+
+
+				</div>
+				<!-- Carousel controls -->
+				<a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev"><span>Prev</span>
+					<i class="fa fa-angle-left"></i>
+				</a>
+				<a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next"><span>Next</span>
+					<i class="fa fa-angle-right"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	</div>
+</div>
+</section>
+<!-- partial -->
+
+<div class="container appointment" id="map">	
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-title">
+						  <div class="frontpentatxt" style="font-size:27px">PentaTr@ining <span style="font-weight:normal">2005 - present</span></div>
+							
+						</div>
+            <div id="mapsvg">
+            </div><br><br>
+					</div>
+				</div>
+
+</div>
+
+		<!-- Start Appointment -->
+		<section class="appointment" id="loginanc">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-title">
+						<a class="frontbtn" href="theme/boost/pix/PentaTr@ining-2020_Course-announcement_v3.0.pdf" download>{{#str}}courseannounce, theme_boost{{/str}}</a>
+						<!--	<img src="theme/boost/templates/img/section-img.png" alt="#">-->
+
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-md-12 col-12">
+					<img class="loginimg"  src="theme/boost/templates/img/login-asset.png" alt="#">
+					</div>
+					<div class="col-lg-6 col-md-12 col-12">
+
+<div class="col-md-12 col-sm-12 col-xs-12 login-form">
+<div class="login-box">
+
+
+
+
+<br><div class="stfc-logo"><img class="img-responsive" alt="shriram-ap" src="theme/boost/layout/images/penta-logo.png" /></div>
+<div id="page-wrapper">
+
+    <div>
+   </div>
+
+
+    <div id="page" class="container-fluid mt-0">
+        <div id="page-content"><!------- class="row"---------->
+            <div id="region-main-box">
+                <section id="region-main" class="stfc-id18">
+                    <span class="notifications" id="user-notifications"></span>
+                    <div role="main"><span id="maincontent"></span><div class="loginbox clearfix onecolumn">
+
+    <div class="loginpanel">
+
+        <h2>Sign in</h2>
+
+        <div class="subcontent loginsub">
+
+
+
+            
+            <form action="{{{loginurl}}}" method="post" id="login">
+                <div class="loginform">
+                    <!--<div class="form-label">
+                        <label for="username">
+                                Username / email
+                        </label>
+                    </div>-->
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" class="form-control" name="username" id="username" size="" placeholder="{{{unplaceholder}}}" value="">
+                        </div>
+                    
+                    <!--<div class="form-input">
+                        <input type="text" name="username" placeholder="Login for Employees/Business Associates" id="username" size="15" value="">
+                    </div>-->
+                    <div class="clearer"><!-- --></div>
+
+                    
+                     <div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+							
+						</div>
+						<input type="password" class="form-control" name="password" id="password" size="" placeholder="{{{unpassword}}}" value="">
+                    </div>
+                    
+                    
+                </div>
+	{{#errmsg}}
+	<div class="loginerrors">
+		<div class="errortext" role="alert" data-aria-autofocus="true" tabindex="0" style="color:red;">{{errmsg}}</div>
+	</div>
+	{{/errmsg}}
+                <div class="clearer"><!-- --></div>
+                    <div class="rememberpass">
+                        <input type="checkbox" name="rememberusername" id="rememberusername" value="1">
+                        <label for="rememberusername">Remember username</label>
+                    </div>
+                
+                 <div class="forgetpass row">
+                    <a class="col-md-6" href="{{{logouturl}}}">{{{unfpassword}}}</a>
+					<a class="col-md-6" href="{{{ config.wwwroot }}}/login/signup.php">{{{uncaccount}}}</a>
+                </div>
+                <div class="footers"><!---------custom footers open--------->
+                <div class="clearer"><!-- --></div>
+
+                <input id="anchor" type="hidden" name="anchor" value="">
+                <script>document.getElementById('anchor').value = location.hash;</script>
+                <input type="hidden" name="logintoken" value="FWYrRgbdewkr1FR3RIzdJHGPbP8DFhgS">
+                <div class="col-md-6 pull-right login-btn" style="padding:0px">
+              <input type="submit" id="loginbtn" class="pull-right" value="{{{unlogin}}}">
+				</div>
+    
+
+             
+            
+            
+            
+
+
+
+        </div></form>
+    </div><!---------custom footer close--------->
+         
+
+    </div>
+
+
+
+
+
+
+
+    <div class="signuppanel">
+
+
+    </div>
+</div></div>
+                    
+                </section>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+			</div>
+			
+</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End Appointment -->
+
+</div>
+
+</body>
+</html>
+
+
+<script>
+	
+
+
+</script>

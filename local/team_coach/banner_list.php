@@ -21,34 +21,31 @@
  * @copyright  2011 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+require_once '../../config.php';
+require "$CFG->libdir/tablelib.php";
+require_once('lib.php');
+require "banner_list_form.php";
 
-require_once("../../config.php");
-require_once("$CFG->libdir/tablelib.php");
-require_once("menu_list_form.php");
+$return = new moodle_url('/local/team_coach/banner_list.php');
 
-$context = context_system::instance();
 require_login();
+$context = context_system::instance();
 $PAGE->set_context($context);
-$PAGE->set_url($CFG->wwwroot . '/local/team_coach/menu_list.php');
-$PAGE->set_title('Menu List');
-$PAGE->set_heading('Menu List');
-$PAGE->set_pagelayout('standard');
-$PAGE->navbar->add('Menu List');
+$PAGE->set_url($CFG->wwwroot . '/local/team_coach/banner_list.php');
+$table = new banner_list_form('uniqueid');
+$PAGE->set_title('Banner List');
+$PAGE->set_heading('Banner List');
+$PAGE->set_pagelayout('admin');
 echo $OUTPUT->header();
-$download = optional_param('download', '', PARAM_ALPHA);
-
-$table = new menu_list('uniqueid');
-
-$field = 'mc.*, td.name';
-$from = "{menu_configuration} mc JOIN {theme_detail} td ON td.id = mc.theme_id";
+echo $OUTPUT->heading('Banner List');
+echo html_writer::start_tag('div', ['id'=>'buttonid', 'style'=>'float:right;']);
+echo html_writer::link($CFG->wwwroot.'/local/team_coach/frontpage.php', 'Add Banner', ['class'=>'btn btn-secondary']);
+echo html_writer::end_tag('div');
+echo '<br><br>';
+$field = 'tb.*, td.name';
+$from = '{theme_banner} tb JOIN {theme_detail} td ON td.id = tb.theme_id';
 // Work out the sql for the table.
 $table->set_sql($field, $from, '1=1');
-
-$table->define_baseurl("$CFG->wwwroot/local/team_coach/menu_list.php");
-echo html_writer::start_tag('div', ['style' => 'float:right']);
-echo $OUTPUT->single_button($CFG->wwwroot.'/local/team_coach/menu_configuration.php', 'Add Menu');
-echo html_writer::end_tag('div');
-echo "<br>";
-echo "<br>";
+$table->define_baseurl("$CFG->wwwroot/local/team_coach/banner_list.php");
 $table->out(10, true);
 echo $OUTPUT->footer();

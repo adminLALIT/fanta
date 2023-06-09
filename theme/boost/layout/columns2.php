@@ -60,6 +60,15 @@ $templatecontext = [
 if ($DB->record_exists('theme_detail', ['url'=> $domain])) {
     $themerecord = $DB->get_record('theme_detail',['url' => $domain]);
     $templatecontext['btn_color'] = $themerecord->theme_color;
+    
+    $menurecord = $DB->get_records('menu_configuration',['theme_id' =>$themerecord->id]);
+    $menuitems[0] = "";
+    if ($menurecord) {
+        foreach($menurecord as $menuvalue){
+            $menuitems[$menuvalue->menu_index] = ['menuname' => $menuvalue->menu_name, 'menuurl' => $menuvalue->menu_url];
+        }
+        $templatecontext['menus'] = $menuitems;
+    }
 }
 
 $nav = $PAGE->flatnav;

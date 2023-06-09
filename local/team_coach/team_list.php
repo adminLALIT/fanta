@@ -42,9 +42,15 @@ $PAGE->set_heading('Manage Theme List');
 $PAGE->set_pagelayout('standard');
 echo $OUTPUT->header();
 echo $OUTPUT->heading('Manage Theme Configuration');
-echo '<div id="buttonid" style="float:right;">
-<a href="'.$CFG->wwwroot.'/local/team_coach/menu_list.php"><button class="btn btn-secondary">Manage Theme Menu </button></a>
-<a href="'.$CFG->wwwroot.'/local/team_coach/index.php"><button class="btn btn-secondary">Add New Theme </button></a></div><br><br>';
+echo html_writer::start_tag('div', ['id'=>'buttonid', 'style'=>'float:right;']);
+echo html_writer::link($CFG->wwwroot.'/local/team_coach/banner_list.php', 'Manage Frontpage Banner', ['class'=>'btn btn-secondary']);
+echo '&nbsp;&nbsp;&nbsp;';
+echo html_writer::link($CFG->wwwroot.'/local/team_coach/menu_list.php', 'Manage Theme Menu', ['class'=>'btn btn-secondary']);
+echo '&nbsp;&nbsp;&nbsp;';
+echo html_writer::link($CFG->wwwroot.'/local/team_coach/index.php', 'Add New Theme', ['class'=>'btn btn-secondary']);
+echo html_writer::end_tag('div');
+echo '<br><br>';
+
 $table->no_sorting('action');
 $table->no_sorting('logo');
 // Work out the sql for the table.
