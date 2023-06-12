@@ -39,8 +39,18 @@ $string['menu_icon']= 'Menu Icon';
 $string['menu_url']= 'Menu Url';   
 $string['menu_index']= 'Menu Index';   
 $string['banner_title']= 'Banner Title';    
-$string['banner_desc']= 'Banner description';   
+$string['banner_desc']= 'Banner Description';   
 $string['banner_img']= 'Banner Image';    
 $string['bannertitleexists']= 'Banner Title exists';     
+$string['section_title']= 'Section Title';    
+$string['descrip_editor']= 'Section Description';   
+$string['section_img']= 'Section Image';    
+$string['sectiontitleexists']= 'Section Title exists';     
+$string['numberonly']= 'Field contains only numbers';     
+$string['section_index']= 'Section Index';      
+$string['partner_name']= 'Partner Name';        
+$string['partner_logo']= 'Partner Logo';        
+$string['partner_link']= 'Partner Link';        
+$string['partnerexists']= 'Partner already exists';        
  
 ?>

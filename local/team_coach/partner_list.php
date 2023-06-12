@@ -24,47 +24,32 @@
 
 require_once("../../config.php");
 require_once("$CFG->libdir/tablelib.php");
-require_once("menu_list_mform.php");
-require_once("menu_list_form.php");
+require_once("partner_list_form.php");
 
 $context = context_system::instance();
 require_login();
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/team_coach/menu_list.php');
-$PAGE->set_title('Menu List');
-$PAGE->set_heading('Menu List');
+$PAGE->set_title('Partner Logo List');
+$PAGE->set_heading('Partner Logo List');
 $PAGE->set_pagelayout('standard');
 $PAGE->navbar->add('Manage theme', new moodle_url('/local/team_coach/team_list.php'));
-$PAGE->navbar->add('Manage menu', new moodle_url('/local/team_coach/menu_list.php'));
-$PAGE->navbar->add('Menu List');
+$PAGE->navbar->add('Manage Partner Logo', new moodle_url('/local/team_coach/partner_list.php'));
+$PAGE->navbar->add('Partner Logo List');
 echo $OUTPUT->header();
-$download = optional_param('download', '', PARAM_ALPHA);
 
-$table = new menu_list('uniqueid');
-$mform = new menu_list_mform();
-if ($mform->is_cancelled()) {
-    redirect($CFG->wwwroot . '/local/team_coach/menu_list.php');
-    // Handle form cancel operation, if cancel button is present on form.
-} else if ($fromform = $mform->get_data()) {
-if ($fromform->theme_id) {
-    $where = 'td.id = '.$fromform->theme_id.'';
-}
-}
-else {
-    $where = '1=1';
-}
-$field = 'mc.*, td.name';
-$from = "{menu_configuration} mc JOIN {theme_detail} td ON td.id = mc.theme_id";
+$table = new partner_list('uniqueid');
+$where = '1=1';
+$field = 'tp.*, td.name';
+$from = "{theme_partner} tp JOIN {theme_detail} td ON td.id = tp.theme_id";
 // Work out the sql for the table.
 $table->set_sql($field, $from, $where);
-$table->define_baseurl("$CFG->wwwroot/local/team_coach/menu_list.php");
+$table->define_baseurl("$CFG->wwwroot/local/team_coach/partner_list.php");
 echo html_writer::start_tag('div', ['style' => 'float:right']);
-echo $OUTPUT->single_button($CFG->wwwroot.'/local/team_coach/menu_configuration.php', 'Add Menu');
+echo $OUTPUT->single_button($CFG->wwwroot.'/local/team_coach/partner.php', 'Add Partner Logo');
 echo html_writer::end_tag('div');
 echo "<br>";
 echo "<br>";
-
 $table->no_sorting('action');
-$mform->display();
 $table->out(10, true);
 echo $OUTPUT->footer();

@@ -64,4 +64,45 @@ function get_banner_by_theme_id($id){
       return null;
     }
 }
+
+
+function get_sectionimage_by_id($id){
+  global $CFG;
+  $context = context_system::instance();
+  $fs = get_file_storage();
+  // get the image
+  $files = $fs->get_area_files($context->id, 'local_team_coach', 'section', $id, "timemodified", false);
+    foreach ($files as $file) {
+      $filename = $file->get_filename();
+      $mimetype = $file->get_mimetype();
+      $imageurl = file_encode_url($CFG->wwwroot . '/pluginfile.php', '/' . $context->id . '/local_team_coach/section/' . $id . '/' . $filename);
+    }
+    if ($imageurl) {
+      # code...
+      return $imageurl;
+    }
+    else {
+      return null;
+    }
+}
+
+function get_partnerimage_by_id($id){
+  global $CFG;
+  $context = context_system::instance();
+  $fs = get_file_storage();
+  // get the image
+  $files = $fs->get_area_files($context->id, 'local_team_coach', 'partner', $id, "timemodified", false);
+    foreach ($files as $file) {
+      $filename = $file->get_filename();
+      $mimetype = $file->get_mimetype();
+      $imageurl = file_encode_url($CFG->wwwroot . '/pluginfile.php', '/' . $context->id . '/local_team_coach/partner/' . $id . '/' . $filename);
+    }
+    if ($imageurl) {
+      # code...
+      return $imageurl;
+    }
+    else {
+      return null;
+    }
+}
 ?>

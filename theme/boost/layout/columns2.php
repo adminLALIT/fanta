@@ -56,8 +56,10 @@ $templatecontext = [
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu)
 ];
+$urlcolumn = $DB->sql_compare_text('url');
 
-if ($DB->record_exists('theme_detail', ['url'=> $domain])) {
+// if ($DB->record_exists('theme_detail', [$urlcolumn => $domain])) {
+if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
     $themerecord = $DB->get_record('theme_detail',['url' => $domain]);
     $templatecontext['btn_color'] = $themerecord->theme_color;
     

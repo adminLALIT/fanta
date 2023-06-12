@@ -24,6 +24,7 @@
 require_once '../../config.php';
 require "$CFG->libdir/tablelib.php";
 require_once('lib.php');
+require_once("menu_list_mform.php");
 require "banner_list_form.php";
 
 $return = new moodle_url('/local/team_coach/banner_list.php');
@@ -33,9 +34,24 @@ $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/team_coach/banner_list.php');
 $table = new banner_list_form('uniqueid');
-$PAGE->set_title('Banner List');
+$mform = new menu_list_mform();
+if ($mform->is_cancelled()) {
+    redirect($CFG->wwwroot . '/local/team_coach/banner_list.php');
+    // Handle form cancel operation, if cancel button is present on form.
+} else if ($fromform = $mform->get_data()) {
+if ($fromform->theme_id) {
+    $where = 'td.id = '.$fromform->theme_id.'';
+}
+}
+else {
+    $where = '1=1';
+}
+$PAGE->set_title('Manage Banner');
 $PAGE->set_heading('Banner List');
 $PAGE->set_pagelayout('admin');
+$PAGE->navbar->add('Manage theme', new moodle_url('/local/team_coach/team_list.php'));
+$PAGE->navbar->add('Manage Banner ', new moodle_url('/local/team_coach/banner_list.php'));
+$PAGE->navbar->add('Banner List');
 echo $OUTPUT->header();
 echo $OUTPUT->heading('Banner List');
 echo html_writer::start_tag('div', ['id'=>'buttonid', 'style'=>'float:right;']);
@@ -45,7 +61,8 @@ echo '<br><br>';
 $field = 'tb.*, td.name';
 $from = '{theme_banner} tb JOIN {theme_detail} td ON td.id = tb.theme_id';
 // Work out the sql for the table.
-$table->set_sql($field, $from, '1=1');
+$table->set_sql($field, $from, $where);
 $table->define_baseurl("$CFG->wwwroot/local/team_coach/banner_list.php");
+$mform->display();
 $table->out(10, true);
 echo $OUTPUT->footer();

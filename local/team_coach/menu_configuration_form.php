@@ -25,43 +25,77 @@
 // moodleform is defined in formslib.php
 require_once("$CFG->libdir/formslib.php");
 
-class configuration_form extends moodleform {
+class configuration_form extends moodleform
+{
     // Add elements to form
-    public function definition() {
+    public function definition()
+    {
         global $CFG, $user, $DB;
         $id = optional_param('id', 0, PARAM_INT);
-     
+
         $mform = $this->_form; // Don't forget the underscore! 
+        $id = $this->_customdata['id'];
+        list($instance) = $this->_customdata;
+
+        $mform->addElement('hidden', 'menuid', $id);
+
         $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail}");
         // Add the new key-value pair at the beginning of the array
         $select_theme = array('' => 'Select') + $select_theme;
-      
-        $mform->addElement('select', 'theme_id', get_string('select_theme','local_team_coach'), $select_theme);
+
+        $mform->addElement('select', 'theme_id', get_string('select_theme', 'local_team_coach'), $select_theme);
         $mform->addRule('theme_id', get_string('required'), 'required', null, 'server');
 
-        $mform->addElement('text', 'menu_name', get_string('menu_name','local_team_coach'));
-        $mform->addRule('menu_name', get_string('missingemail'), 'required', null, 'server');
+        $mform->addElement('text', 'menu_name', get_string('menu_name', 'local_team_coach'));
+        $mform->addRule('menu_name', get_string('required'), 'required', null, 'server');
 
-        $mform->addElement('text', 'menu_url', get_string('menu_url','local_team_coach'));
+        $mform->addElement('text', 'menu_url', get_string('menu_url', 'local_team_coach'));
         $mform->addRule('menu_url', get_string('required'), 'required', null, 'server');
-        
-        $mform->addElement('text', 'menu_index', get_string('menu_index','local_team_coach'));
-        $mform->addRule('menu_index', get_string('number_error','local_team_coach'), 'numeric', null, 'server');
+
+        $mform->addElement('text', 'menu_index', get_string('menu_index', 'local_team_coach'));
+        $mform->addRule('menu_index', get_string('numberonly', 'local_team_coach'), 'numeric', null, 'server');
         $mform->addRule('menu_index', get_string('required'), 'required', null, 'server');
 
         $this->add_action_buttons();
-         
+        $this->set_data($instance);
     }
     // Custom validation should be added here.
-    function validation($data, $files) {
+    function validation($data, $files)
+    {
         global $CFG, $DB, $USER;
 
         $validated = array();
         $data = (object)$data;
         if ($data->menu_name) {
-           if ($DB->record_exists('menu_configuration',['userid' => $USER->id, 'menu_name' => $data->menu_name, 'theme_id' => $data->theme_id])) {
-            $validated['menu_name'] = get_string('nameexists', 'local_team_coach');
-           }
+            if ($data->menuid) {
+                    if ($DB->record_exists('menu_configuration', ['userid' => $USER->id, 'menu_name' => $data->menu_name, 'theme_id' => $data->theme_id])) {
+                        if (!$DB->record_exists('menu_configuration', ['id' => $data->menuid, 'menu_name' => $data->menu_name, 'theme_id' => $data->theme_id])) {
+                            $validated['menu_name'] = get_string('nameexists', 'local_team_coach');
+                        }
+                    }
+    
+                    if ($DB->record_exists('menu_configuration', ['userid' => $USER->id, 'menu_index' => $data->menu_index, 'theme_id' => $data->theme_id])) {
+                       
+                        if (!$DB->record_exists('menu_configuration', ['id' => $data->menuid, 'userid' => $USER->id, 'menu_index' => $data->menu_index, 'theme_id' => $data->theme_id])) {
+                            $validated['menu_index'] = get_string('indexexists', 'local_team_coach');
+                        }
+                    }
+                
+            }
+            else {
+
+                if ($DB->record_exists('menu_configuration', ['userid' => $USER->id, 'menu_index' => $data->menu_index, 'theme_id' => $data->theme_id])) {
+                  
+                        $validated['menu_index'] = get_string('indexexists', 'local_team_coach');
+                    
+                }
+
+                if ($DB->record_exists('menu_configuration', ['userid' => $USER->id, 'menu_name' => $data->menu_name, 'theme_id' => $data->theme_id])) {
+                    
+                        $validated['menu_name'] = get_string('nameexists', 'local_team_coach');
+                    
+                }
+            }
         }
 
         return $validated;

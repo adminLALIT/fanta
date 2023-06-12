@@ -42,20 +42,20 @@ class theme_form extends moodleform
         $mform->addElement('hidden', 'themeid', $id);
 
         $mform->addElement('text', 'url', get_string('url', 'local_team_coach'));
-        $mform->addRule('url', get_string('required'), 'required', null, 'server');
+        $mform->addRule('url', get_string('required'), 'required', 'extraruledata', 'server', false, false);
 
         $mform->addElement('text', 'name', get_string('name', 'local_team_coach'));
-        $mform->addRule('name', get_string('required'), 'required', null, 'server');
-        // $mform->addRule('name', get_string('required'), 'lettersonly', null, 'server');
+        $mform->addRule('name', get_string('required'), 'required', 'extraruledata', 'server', false, false);
+        // $mform->addRule('name', get_string('required'), 'lettersonly');
 
         $mform->addElement('filemanager', 'image_filemanager', get_string('logo', 'local_team_coach'), null, $editoroptions);
         if (!$id) {
             # code...
-            $mform->addRule('image_filemanager', get_string('required'), 'required', null, 'server');
+            $mform->addRule('image_filemanager', get_string('required'), 'required');
         }
 
         $mform->addElement('text', 'theme_color', get_string('theme_color', 'local_team_coach'));
-        $mform->addRule('theme_color', get_string('required'), 'required', null, 'server');
+        $mform->addRule('theme_color', get_string('required'), 'required', 'extraruledata', 'server', false, false);
 
         $langs = get_string_manager()->get_list_of_translations();
         $options = array(
@@ -63,11 +63,12 @@ class theme_form extends moodleform
             'noselectionstring' => 'Select Language',
         );
         $mform->addElement('autocomplete', 'lang', get_string('preferredlanguage'), $langs, $options);
-        $mform->addRule('lang', get_string('required'), 'required', null, 'client');
+        $mform->addRule('lang', get_string('required'), 'required','extraruledata', 'server', false, false);
 
-        $mform->addElement('select', 'signup', get_string('login_signup', 'local_team_coach'), ['' => 'select', '1' => 'Enable', '2' => 'Disable']);
+        $mform->addElement('select', 'signup', get_string('login_signup', 'local_team_coach'), ['' => 'Select', '1' => 'Enable', '2' => 'Disable']);
 
-        $mform->addRule('signup', get_string('required'), 'required', null, 'server');
+        $mform->addRule('signup', get_string('required'), 'required', 'extraruledata', 'server', false, false);
+        
         $this->add_action_buttons();
         $this->set_data($instance);  
     }
@@ -75,11 +76,14 @@ class theme_form extends moodleform
     function validation($data, $files)
     {
         global $CFG, $DB, $USER;
-
+     
         $validated = array();
         $data = (object)$data;
         $data->name = trim($data->name);
         $url_column = $DB->sql_compare_text('url');
+        if (empty($data->lang)) {
+            $validated['lang'] = get_string('required');
+        }
         if (!$data->themeid) {
             if ($DB->record_exists('theme_detail', array('name' => $data->name, 'userid' => $USER->id))) {
                 $validated['name'] = get_string('nameexists', 'local_team_coach');

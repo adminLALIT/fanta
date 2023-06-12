@@ -371,7 +371,8 @@ class renderer_base {
         $filepath = ((int) $maxwidth . 'x' . (int) $maxheight) . '/';
 
         // Use $CFG->themerev to prevent browser caching when the file changes.
-        if ($DB->record_exists('theme_detail', ['url'=> $domain])) {
+        // if ($DB->record_exists('theme_detail', ['url'=> $domain])) {
+            if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
             $themerecord = $DB->get_record('theme_detail',['url' => $domain]);
             require_once($CFG->dirroot.'/local/team_coach/lib.php');
           $logo_url = get_logo_by_theme_id($themerecord->id);
@@ -3728,7 +3729,8 @@ EOD;
         $domain_get = explode('.', @$_SERVER['HTTP_HOST']);
         $domain = $domain_get[0];
         $langs = get_string_manager()->get_list_of_translations();
-        if ($DB->record_exists('theme_detail', ['url' => $domain])) {
+        // if ($DB->record_exists('theme_detail', ['url' => $domain])) {
+            if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
             $themerecord = $DB->get_record('theme_detail', ['url' => $domain]);
             $language = explode(",", $themerecord->lang);
             for ($i = 0; $i < count($language); $i++) {
