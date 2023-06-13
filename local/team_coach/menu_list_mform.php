@@ -32,8 +32,6 @@ class menu_list_mform extends moodleform {
         $id = optional_param('id', 0, PARAM_INT);
      
         $mform = $this->_form; // Don't forget the underscore! 
-        $editoroptions = $this->_customdata['editoroptions'];
-        list($instance) = $this->_customdata;
 
         $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail}");
         // Add the new key-value pair at the beginning of the array
@@ -42,7 +40,6 @@ class menu_list_mform extends moodleform {
         $mform->addElement('hidden', 'themeid', $id);
 
         $mform->addElement('select', 'theme_id', get_string('select_theme','local_team_coach'), $select_theme);
-
         $this->add_action_buttons();
          
     }

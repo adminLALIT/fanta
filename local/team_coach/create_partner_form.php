@@ -35,8 +35,13 @@ class partner_form extends moodleform
         $editoroptions = $this->_customdata['editoroptions'];
         $id = $this->_customdata['id'];
         list($instance) = $this->_customdata;
-
-        $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail}");
+        if ($id) {
+            $where = 'where id = '.$instance->theme_id.''; 
+        }
+        else {
+            $where = null; 
+        }
+        $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail} $where");
         // Add the new key-value pair at the beginning of the array
         $select_theme = array('' => 'Select') + $select_theme;
 

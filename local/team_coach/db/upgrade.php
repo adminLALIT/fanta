@@ -110,6 +110,29 @@ function xmldb_local_team_coach_upgrade($oldversion): bool
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
+
+
+        $table = new xmldb_table('theme_footer_content');
+
+        // Add columns.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '20', null, null);
+        $table->add_field('theme_id', XMLDB_TYPE_INTEGER, '10', null, null);
+        $table->add_field('content_title', XMLDB_TYPE_CHAR, '100', null, null);
+        $table->add_field('content_index', XMLDB_TYPE_INTEGER, '20', null, null);
+        $table->add_field('contentdesc', XMLDB_TYPE_TEXT, '200', null, null);
+        $table->add_field('contentdescformat', XMLDB_TYPE_INTEGER, '10', null, null);
+        $table->add_field('time_created', XMLDB_TYPE_INTEGER, '20', null, null);
+        $table->add_field('time_modified', XMLDB_TYPE_INTEGER, '20', null, null);
+
+        // Add keys.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
+        // Create the table.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+        
     }
 
     if ($oldversion < 2023051103) {

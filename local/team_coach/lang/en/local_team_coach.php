@@ -52,5 +52,10 @@ $string['partner_name']= 'Partner Name';
 $string['partner_logo']= 'Partner Logo';        
 $string['partner_link']= 'Partner Link';        
 $string['partnerexists']= 'Partner already exists';        
- 
+$string['content_title']= 'Content Title';         
+$string['contentdesc_editor']= 'Content Description'; 
+$string['content_index']= 'Content Index';      
+$string['footercontentexists']= 'Already exists';       
+$string['indexexists']= 'Already exists';       
+
 ?>

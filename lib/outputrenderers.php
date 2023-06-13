@@ -373,7 +373,7 @@ class renderer_base {
         // Use $CFG->themerev to prevent browser caching when the file changes.
         // if ($DB->record_exists('theme_detail', ['url'=> $domain])) {
             if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
-            $themerecord = $DB->get_record('theme_detail',['url' => $domain]);
+            $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");
             require_once($CFG->dirroot.'/local/team_coach/lib.php');
           $logo_url = get_logo_by_theme_id($themerecord->id);
           return $logo_url;
@@ -3731,7 +3731,7 @@ EOD;
         $langs = get_string_manager()->get_list_of_translations();
         // if ($DB->record_exists('theme_detail', ['url' => $domain])) {
             if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
-            $themerecord = $DB->get_record('theme_detail', ['url' => $domain]);
+            $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");
             $language = explode(",", $themerecord->lang);
             for ($i = 0; $i < count($language); $i++) {
                 $themelang[$language[$i]] = $langs[$language[$i]];

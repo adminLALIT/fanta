@@ -43,9 +43,12 @@ class theme_form extends moodleform
 
         $mform->addElement('text', 'url', get_string('url', 'local_team_coach'));
         $mform->addRule('url', get_string('required'), 'required', 'extraruledata', 'server', false, false);
+        $mform->setType('url', PARAM_TEXT);
 
         $mform->addElement('text', 'name', get_string('name', 'local_team_coach'));
         $mform->addRule('name', get_string('required'), 'required', 'extraruledata', 'server', false, false);
+        $mform->setType('name', PARAM_TEXT);
+
         // $mform->addRule('name', get_string('required'), 'lettersonly');
 
         $mform->addElement('filemanager', 'image_filemanager', get_string('logo', 'local_team_coach'), null, $editoroptions);
@@ -56,6 +59,7 @@ class theme_form extends moodleform
 
         $mform->addElement('text', 'theme_color', get_string('theme_color', 'local_team_coach'));
         $mform->addRule('theme_color', get_string('required'), 'required', 'extraruledata', 'server', false, false);
+        $mform->setType('theme_color', PARAM_TEXT);
 
         $langs = get_string_manager()->get_list_of_translations();
         $options = array(

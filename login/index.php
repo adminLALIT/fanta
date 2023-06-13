@@ -38,8 +38,11 @@ purge_caches();
 $selfregisterid = $DB->get_field('config', 'id', ['name' => 'registerauth']);
 $domain_get = explode('.', @$_SERVER['HTTP_HOST']);
 $domain = $domain_get[0];
-if ($DB->record_exists('theme_detail', ['url' => $domain])) {
-    $themerecord = $DB->get_record('theme_detail', ['url' => $domain]);
+$url_column = $DB->sql_compare_text('url');
+// if ($DB->record_exists('theme_detail', [$url_column => $domain])) {
+if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
+    // $themerecord = $DB->get_record_sql('theme_detail', [$url_column => $domain]);
+    $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");
     if ($themerecord) {
         if ($themerecord->signup == 2) {
             set_config('registerauth', '');
@@ -50,8 +53,7 @@ if ($DB->record_exists('theme_detail', ['url' => $domain])) {
 } else {
     $default_record = $DB->get_record('signup_value', []);
     if ($default_record) {
-        $update->id = $selfregisterid;
-        $update->value = $default_record->signup;
+       
         set_config('registerauth', $default_record->signup);
     }
 }

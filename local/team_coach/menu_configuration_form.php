@@ -38,8 +38,14 @@ class configuration_form extends moodleform
         list($instance) = $this->_customdata;
 
         $mform->addElement('hidden', 'menuid', $id);
+        if ($id) {
+            $where = 'where id = '.$instance->theme_id.''; 
+        }
+        else {
+            $where = null; 
+        }
 
-        $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail}");
+        $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail} $where");
         // Add the new key-value pair at the beginning of the array
         $select_theme = array('' => 'Select') + $select_theme;
 

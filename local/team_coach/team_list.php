@@ -43,6 +43,8 @@ $PAGE->set_pagelayout('standard');
 echo $OUTPUT->header();
 echo $OUTPUT->heading('Manage Theme Configuration');
 echo html_writer::start_tag('div', ['id'=>'buttonid', 'style'=>'float:right;']);
+echo html_writer::link($CFG->wwwroot.'/local/team_coach/content_list.php', 'Manage Footer Content', ['class'=>'btn btn-secondary']);
+echo '&nbsp;&nbsp;&nbsp;';
 echo html_writer::link($CFG->wwwroot.'/local/team_coach/partner_list.php', 'Manage Partners Logo', ['class'=>'btn btn-secondary']);
 echo '&nbsp;&nbsp;&nbsp;';
 echo html_writer::link($CFG->wwwroot.'/local/team_coach/section_list.php', 'Manage Frontpage Sections', ['class'=>'btn btn-secondary']);

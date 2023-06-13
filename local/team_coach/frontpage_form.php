@@ -34,8 +34,14 @@ class frontpage_form extends moodleform {
         $mform = $this->_form; // Don't forget the underscore! 
         $editoroptions = $this->_customdata['editoroptions'];
         list($instance) = $this->_customdata;
+        if ($id) {
+            $where = 'where id = '.$instance->theme_id.''; 
+        }
+        else {
+            $where = null; 
+        }
 
-        $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail}");
+        $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail} $where");
         // Add the new key-value pair at the beginning of the array
         $select_theme = array('' => 'Select') + $select_theme;
         
@@ -46,7 +52,8 @@ class frontpage_form extends moodleform {
 
         $mform->addElement('text', 'banner_title', get_string('banner_title','local_team_coach'));
         $mform->addRule('banner_title', get_string('missingemail'), 'required', null, 'server');
-
+        $mform->setType('banner_title', PARAM_TEXT);
+        
         $mform->addElement('textarea', 'banner_desc', get_string('banner_desc','local_team_coach'), 'rows="10" cols="100"');
         
         $mform->addElement('filemanager', 'banner_filemanager', get_string('banner_img', 'local_team_coach'), null, $editoroptions);
