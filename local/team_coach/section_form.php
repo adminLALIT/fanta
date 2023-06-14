@@ -60,7 +60,7 @@ class section_form extends moodleform {
         $mform->addElement('text', 'section_index', get_string('section_index','local_team_coach'));
         $mform->addRule('section_index', get_string('numberonly', 'local_team_coach'), 'numeric', 'extraruledata', 'server', false, false);
         $mform->addRule('section_index', get_string('required'), 'required', 'extraruledata', 'server', false, false);
-        $mform->setType('section_index', PARAM_INT);
+        $mform->setType('section_index', PARAM_RAW);
 
         $mform->addElement('filemanager', 'section_filemanager', get_string('section_img', 'local_team_coach'), null, $editoroptions);
         if (!$id) {
@@ -78,13 +78,32 @@ class section_form extends moodleform {
 
         $validated = array();
         $data = (object)$data;
-        // if ($data->section_title) {
-        //     if (!$data->themeid) {
-        //         if ($DB->record_exists('theme_section',['userid' => $USER->id, 'section_title' => $data->section_title, 'theme_id' => $data->theme_id])) {
-        //          $validated['section_title'] = get_string('sectiontitleexists', 'local_team_coach');
-        //         }
-        //     } 
-        // }
+        if ($data->section_title) {
+            if ($data->sectionid) {
+               
+                if ($DB->record_exists('theme_section', ['userid' => $USER->id, 'section_title' => $data->section_title, 'theme_id' => $data->theme_id])) {
+                    if (!$DB->record_exists('theme_section', ['id' => $data->sectionid, 'section_title' => $data->section_title, 'theme_id' => $data->theme_id])) {
+                        $validated['section_title'] = get_string('sectiontitleexists', 'local_team_coach');
+                    }
+                }
+                if ($DB->record_exists('theme_section', ['userid' => $USER->id, 'section_index' => $data->section_index, 'theme_id' => $data->theme_id])) {
+
+                    if (!$DB->record_exists('theme_section', ['id' => $data->sectionid, 'userid' => $USER->id, 'section_index' => $data->section_index, 'theme_id' => $data->theme_id])) {
+                        $validated['section_index'] = get_string('indexexists', 'local_team_coach');
+                    }
+                }
+            } else {
+
+                if ($DB->record_exists('theme_section', ['userid' => $USER->id, 'section_index' => $data->section_index, 'theme_id' => $data->theme_id])) {
+
+                    $validated['section_index'] = get_string('indexexists', 'local_team_coach');
+                }
+                if ($DB->record_exists('theme_section', ['userid' => $USER->id, 'section_title' => $data->section_title, 'theme_id' => $data->theme_id])) {
+
+                    $validated['section_title'] = get_string('sectiontitleexists', 'local_team_coach');
+                }
+            }
+        }
         return $validated;
     }
 }

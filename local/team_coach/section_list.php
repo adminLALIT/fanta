@@ -24,6 +24,7 @@
 require_once '../../config.php';
 require "$CFG->libdir/tablelib.php";
 require_once('lib.php');
+require_once("menu_list_mform.php");
 require "section_list_form.php";
 
 $return = new moodle_url('/local/team_coach/section_list.php');
@@ -36,7 +37,6 @@ require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/team_coach/section_list.php');
-$table = new section_list_form('uniqueid');
 $PAGE->set_title('Manage Section List');
 $PAGE->set_heading('Manage Section List');
 $PAGE->set_pagelayout('standard');
@@ -45,6 +45,27 @@ $PAGE->navbar->add('Manage Section', new moodle_url('/local/team_coach/section_l
 $PAGE->navbar->add('Section List');
 echo $OUTPUT->header();
 echo $OUTPUT->heading('Manage Sections');
+// Perform the redirection before any page output
+if (optional_param('cancel', false, PARAM_BOOL)) {
+    redirect(new moodle_url('/local/team_coach/section_list.php'));
+}
+
+$table = new section_list_form('uniqueid');
+$mform = new menu_list_mform();
+if ($mform->is_cancelled()) {
+    // Handle form cancel operation, if cancel button is present on form.
+} else if ($fromform = $mform->get_data()) {
+if ($fromform->theme_id) {
+    $where = 'td.id = '.$fromform->theme_id.'';
+}
+else {
+    $where = '1=1';
+}
+}
+else {
+    $where = '1=1';
+}
+
 echo html_writer::start_tag('div', ['id'=>'buttonid', 'style'=>'float:right;']);
 echo html_writer::link($CFG->wwwroot.'/local/team_coach/section.php', 'Add New Section', ['class'=>'btn btn-secondary']);
 echo '&nbsp;&nbsp;&nbsp;';
@@ -55,7 +76,8 @@ $table->no_sorting('action');
 // $table->no_sorting('logo');
 // Work out the sql for the table.
 $from = '{theme_section} ts JOIN {theme_detail} td ON ts.theme_id = td.id';
-$table->set_sql('ts.*, td.name', $from, '1=1');
+$table->set_sql('ts.*, td.name', $from, $where);
 $table->define_baseurl("$CFG->wwwroot/local/team_coach/section_list.php");
+$mform->display();
 $table->out(10, true);
 echo $OUTPUT->footer();

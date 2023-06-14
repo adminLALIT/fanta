@@ -45,8 +45,7 @@ if ($id) {
 } else {
     $PAGE->navbar->add('Add New Footer Content');
 }
-$PAGE->set_title('Manage Footer Content');
-$PAGE->set_heading('Manage Footer Content');
+
 
 $editoroptions = array(
     'maxfiles' => 1,
@@ -104,27 +103,30 @@ if ($mform->is_cancelled()) {
         $fromform->id = $fromform->contentid;
         $fromform->time_modified = time();
         if ($fromform->contentdesc_editor) {
-            $data = file_postupdate_standard_editor($fromform, 'contentdesc', $editoroptions, context_system::instance(), 'local_team_coach', 'contentdesc', $fromform->sectionid);
-            $DB->set_field('theme_footer_content', 'contentdesc', $data->contentdesc, array('id'=>$fromform->contentid));
-            $DB->set_field('theme_footer_content', 'contentdescformat', $data->contentdescformat, array('id'=>$fromform->contentid));
+            $data = file_postupdate_standard_editor($fromform, 'contentdesc', $editoroptions, context_system::instance(), 'local_team_coach', 'contentdesc', $fromform->contentid);
+            $DB->set_field('theme_footer_content', 'contentdesc', $data->contentdesc, array('id' => $fromform->contentid));
+            $DB->set_field('theme_footer_content', 'contentdescformat', $data->contentdescformat, array('id' => $fromform->contentid));
         }
         $data->id = $fromform->contentid;
         $updated = $DB->update_record('theme_footer_content', $data);
         if ($updated) {
-            redirect($CFG->wwwroot . '/local/team_coach/content_list.php', 'Record updated Successfully', null, \core\output\notification::NOTIFY_INFO);
+            redirect($CFG->wwwroot . '/local/team_coach/content_list.php', 'Record Updated Successfully', null, \core\output\notification::NOTIFY_INFO);
         }
     } else {
         $fromform->time_created = time();
         $learnid = $DB->insert_record('theme_footer_content', $fromform, $returnid = true, $bulk = false);
         $editoroptions['context'] = $context;
         $ins = file_postupdate_standard_editor($fromform, 'contentdesc', $editoroptions, context_system::instance(), 'local_team_coach', 'contentdesc',  $learnid);
-        $DB->set_field('theme_footer_content', 'contentdesc', $ins->contentdesc, array('id'=>$learnid));
-        $DB->set_field('theme_footer_content', 'contentdescformat', $ins->contentdescformat, array('id'=>$learnid));
+        $DB->set_field('theme_footer_content', 'contentdesc', $ins->contentdesc, array('id' => $learnid));
+        $DB->set_field('theme_footer_content', 'contentdescformat', $ins->contentdescformat, array('id' => $learnid));
         $ins->id = $learnid;
         $ins->id = $DB->update_record('theme_footer_content', $ins);
-        redirect($return, 'Record Created Successfully', null, \core\output\notification::NOTIFY_INFO);
+      
+        redirect($return, 'Record Created Successfully');
     }
 }
+$PAGE->set_title('Manage Footer Content');
+$PAGE->set_heading('Manage Footer Content');
 echo $OUTPUT->header();
 $mform->display();
 echo $OUTPUT->footer();

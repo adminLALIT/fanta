@@ -39,15 +39,20 @@ $PAGE->navbar->add('Manage menu', new moodle_url('/local/team_coach/menu_list.ph
 $PAGE->navbar->add('Menu List');
 echo $OUTPUT->header();
 $download = optional_param('download', '', PARAM_ALPHA);
+if (optional_param('cancel', false, PARAM_BOOL)) {
+    redirect(new moodle_url('/local/team_coach/menu_list.php'));
+}
 
 $table = new menu_list('uniqueid');
 $mform = new menu_list_mform();
 if ($mform->is_cancelled()) {
-    redirect($CFG->wwwroot . '/local/team_coach/menu_list.php');
     // Handle form cancel operation, if cancel button is present on form.
 } else if ($fromform = $mform->get_data()) {
 if ($fromform->theme_id) {
     $where = 'td.id = '.$fromform->theme_id.'';
+}
+else {
+    $where = '1=1';
 }
 }
 else {

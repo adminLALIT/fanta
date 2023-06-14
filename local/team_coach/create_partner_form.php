@@ -36,9 +36,12 @@ class partner_form extends moodleform
         $id = $this->_customdata['id'];
         list($instance) = $this->_customdata;
         if ($id) {
+            $disable = 'readonly';
             $where = 'where id = '.$instance->theme_id.''; 
         }
         else {
+            
+            $disable = '';
             $where = null; 
         }
         $select_theme =  $DB->get_records_sql_menu("SELECT id, name FROM {theme_detail} $where");
@@ -51,8 +54,9 @@ class partner_form extends moodleform
         $mform->addElement('select', 'theme_id', get_string('select_theme','local_team_coach'), $select_theme);
         $mform->addRule('theme_id', get_string('required'), 'required', null, 'server');
 
-        $mform->addElement('text', 'partner_name', get_string('partner_name', 'local_team_coach'));
+        $mform->addElement('text', 'partner_name', get_string('partner_name', 'local_team_coach'), $disable);
         $mform->addRule('partner_name', get_string('required'), 'required', 'extraruledata', 'server', false, false);
+        $mform->settype('partner_name', PARAM_TEXT);
 
         $mform->addElement('filemanager', 'partner_filemanager', get_string('partner_logo', 'local_team_coach'), null, $editoroptions);
         if (!$id) {
@@ -62,6 +66,7 @@ class partner_form extends moodleform
 
         $mform->addElement('text', 'partner_link', get_string('partner_link', 'local_team_coach'));
         $mform->addRule('partner_link', get_string('required'), 'required', 'extraruledata', 'server', false, false);
+        $mform->settype('partner_link', PARAM_TEXT);
 
         $this->add_action_buttons();
         $this->set_data($instance);  
@@ -74,10 +79,12 @@ class partner_form extends moodleform
         $validated = array();
         $data = (object)$data;
         $data->partner_name = trim($data->partner_name);
-    
         if ($data->partner_name) {
-            if ($DB->record_exists('theme_partner', array('partner_name' => $data->partner_name, 'userid' => $USER->id))) {
-                $validated['partner_name'] = get_string('partnerexists', 'local_team_coach');
+            if(!$data->partnerid){
+
+                if ($DB->record_exists('theme_partner', array('partner_name' => $data->partner_name, 'userid' => $USER->id))) {
+                    $validated['partner_name'] = get_string('partnerexists', 'local_team_coach');
+                }
             }
         }
         return $validated;

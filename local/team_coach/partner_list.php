@@ -24,6 +24,7 @@
 
 require_once("../../config.php");
 require_once("$CFG->libdir/tablelib.php");
+require_once("menu_list_mform.php");
 require_once("partner_list_form.php");
 
 $context = context_system::instance();
@@ -37,9 +38,25 @@ $PAGE->navbar->add('Manage theme', new moodle_url('/local/team_coach/team_list.p
 $PAGE->navbar->add('Manage Partner Logo', new moodle_url('/local/team_coach/partner_list.php'));
 $PAGE->navbar->add('Partner Logo List');
 echo $OUTPUT->header();
+if (optional_param('cancel', false, PARAM_BOOL)) {
+    redirect(new moodle_url('/local/team_coach/partner_list.php'));
+}
 
 $table = new partner_list('uniqueid');
-$where = '1=1';
+$mform = new menu_list_mform();
+if ($mform->is_cancelled()) {
+    // Handle form cancel operation, if cancel button is present on form.
+} else if ($fromform = $mform->get_data()) {
+if ($fromform->theme_id) {
+    $where = 'td.id = '.$fromform->theme_id.'';
+}
+else {
+    $where = '1=1';
+}
+}
+else {
+    $where = '1=1';
+}
 $field = 'tp.*, td.name';
 $from = "{theme_partner} tp JOIN {theme_detail} td ON td.id = tp.theme_id";
 // Work out the sql for the table.
@@ -51,5 +68,6 @@ echo html_writer::end_tag('div');
 echo "<br>";
 echo "<br>";
 $table->no_sorting('action');
+$mform->display();
 $table->out(10, true);
 echo $OUTPUT->footer();

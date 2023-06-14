@@ -62,7 +62,7 @@ class content_form extends moodleform
         $mform->addElement('text', 'content_index', get_string('content_index', 'local_team_coach'));
         $mform->addRule('content_index', get_string('numberonly', 'local_team_coach'), 'numeric', 'extraruledata', 'server', false, false);
         $mform->addRule('content_index', get_string('required'), 'required', 'extraruledata', 'server', false, false);
-        $mform->setType('content_index', PARAM_INT);
+        $mform->setType('content_index', PARAM_RAW);
 
         $this->add_action_buttons();
         $this->set_data($instance);

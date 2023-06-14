@@ -33,6 +33,18 @@ require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/team_coach/banner_list.php');
+$PAGE->set_title('Manage Banner');
+$PAGE->set_heading('Banner List');
+$PAGE->set_pagelayout('admin');
+$PAGE->navbar->add('Manage theme', new moodle_url('/local/team_coach/team_list.php'));
+$PAGE->navbar->add('Manage Banner ', new moodle_url('/local/team_coach/banner_list.php'));
+$PAGE->navbar->add('Banner List');
+echo $OUTPUT->header();
+echo $OUTPUT->heading('Banner List');
+if (optional_param('cancel', false, PARAM_BOOL)) {
+    redirect(new moodle_url('/local/team_coach/banner_list.php'));
+}
+
 $table = new banner_list_form('uniqueid');
 $mform = new menu_list_mform();
 if ($mform->is_cancelled()) {
@@ -42,18 +54,14 @@ if ($mform->is_cancelled()) {
 if ($fromform->theme_id) {
     $where = 'td.id = '.$fromform->theme_id.'';
 }
+else {
+    $where = '1=1';
+}
 }
 else {
     $where = '1=1';
 }
-$PAGE->set_title('Manage Banner');
-$PAGE->set_heading('Banner List');
-$PAGE->set_pagelayout('admin');
-$PAGE->navbar->add('Manage theme', new moodle_url('/local/team_coach/team_list.php'));
-$PAGE->navbar->add('Manage Banner ', new moodle_url('/local/team_coach/banner_list.php'));
-$PAGE->navbar->add('Banner List');
-echo $OUTPUT->header();
-echo $OUTPUT->heading('Banner List');
+
 echo html_writer::start_tag('div', ['id'=>'buttonid', 'style'=>'float:right;']);
 echo html_writer::link($CFG->wwwroot.'/local/team_coach/frontpage.php', 'Add Banner', ['class'=>'btn btn-secondary']);
 echo html_writer::end_tag('div');

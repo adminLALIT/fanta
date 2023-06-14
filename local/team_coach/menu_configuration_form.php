@@ -54,13 +54,16 @@ class configuration_form extends moodleform
 
         $mform->addElement('text', 'menu_name', get_string('menu_name', 'local_team_coach'));
         $mform->addRule('menu_name', get_string('required'), 'required', null, 'server');
+        $mform->setType('menu_name', PARAM_TEXT);
 
         $mform->addElement('text', 'menu_url', get_string('menu_url', 'local_team_coach'));
         $mform->addRule('menu_url', get_string('required'), 'required', null, 'server');
+        $mform->setType('menu_url', PARAM_TEXT);
 
         $mform->addElement('text', 'menu_index', get_string('menu_index', 'local_team_coach'));
         $mform->addRule('menu_index', get_string('numberonly', 'local_team_coach'), 'numeric', null, 'server');
         $mform->addRule('menu_index', get_string('required'), 'required', null, 'server');
+        $mform->setType('menu_index', PARAM_RAW);
 
         $this->add_action_buttons();
         $this->set_data($instance);

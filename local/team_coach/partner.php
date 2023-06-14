@@ -38,6 +38,8 @@ require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url('/local/team_coach/partner.php');
+$PAGE->set_title('Manage Partner Logo');
+$PAGE->set_heading('Manage Partner Logo');
 $PAGE->set_pagelayout('admin');
 $PAGE->navbar->add('Manage Partner Logo', new moodle_url('/local/team_coach/partner_list.php'));
 if ($id) {
@@ -45,8 +47,7 @@ if ($id) {
 } else {
     $PAGE->navbar->add('Add New Partner Logo');
 }
-$PAGE->set_title('Manage Partner Logo');
-$PAGE->set_heading('Manage Partner Logo');
+
 
 $editoroptions = array(
     'maxfiles' => 1,
@@ -56,8 +57,7 @@ $editoroptions = array(
 if ($id) {
     $editoroptions['subdirs'] = file_area_contains_subdirs(context_system::instance(), 'local_team_coach', 'descrip', $id);
     $instance = $DB->get_record('theme_partner', array('id' => $id), '*', MUST_EXIST);
-    $instance = file_prepare_standard_editor($instance, 'descrip', $editoroptions, context_system::instance(), 'local_team_coach', 'descrip', $instance->id);
-    file_prepare_standard_filemanager(
+    $instance = file_prepare_standard_filemanager(
         $instance,
         'partner',
         $editoroptions,
@@ -106,7 +106,7 @@ if ($id) {
 }
 //Instantiate simplehtml_form 
 $mform = new partner_form($CFG->wwwroot . '/local/team_coach/partner.php?id=' . $id, array(
-    'editoroptions' => $editoroptions, 'id'=> $id,  $instance
+    'editoroptions' => $editoroptions, 'id' => $id,  $instance
 ));
 
 //Form processing and displaying is done here
@@ -116,10 +116,10 @@ if ($mform->is_cancelled()) {
 } else if ($fromform = $mform->get_data()) {
     //In this case you process validated data. $mform->get_data() returns data posted in form.
     $fromform->userid = $USER->id;
-    
+
     if ($fromform->partnerid) {  // If we edit the theme.
         $fromform->id = $fromform->partnerid;
-        $fromform->time_modified = time();     
+        $fromform->time_modified = time();
         $ins = file_postupdate_standard_filemanager(
             $fromform,
             'partner',
@@ -149,6 +149,9 @@ if ($mform->is_cancelled()) {
         );
         $ins->id = $learnid;
         $ins->id = $DB->update_record('theme_partner', $ins);
+
+        // Perform the redirect manually
+        $return = new moodle_url('/local/team_coach/partner_list.php');
         redirect($return, 'Partner Created Successfully', null, \core\output\notification::NOTIFY_INFO);
     }
 }
