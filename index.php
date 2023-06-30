@@ -38,7 +38,7 @@ if (!empty($CFG->defaulthomepage) && ($CFG->defaulthomepage == HOMEPAGE_MY) && o
     $urlparams['redirect'] = 0;
 }
 $PAGE->set_url('/', $urlparams);
-$PAGE->set_pagelayout('frontpage');
+$PAGE->set_pagelayout('frontpage_team');
 $PAGE->set_other_editing_capability('moodle/course:update');
 $PAGE->set_other_editing_capability('moodle/course:manageactivities');
 $PAGE->set_other_editing_capability('moodle/course:activityvisibility');
@@ -99,6 +99,8 @@ $PAGE->set_heading($SITE->fullname);
 $courserenderer = $PAGE->get_renderer('core', 'course');
 echo $OUTPUT->header();
 
+
+
 $siteformatoptions = course_get_format($SITE)->get_format_options();
 $modinfo = get_fast_modinfo($SITE);
 $modnamesused = $modinfo->get_used_module_names();
@@ -113,12 +115,12 @@ if (!empty($CFG->customfrontpageinclude)) {
     include($CFG->customfrontpageinclude);
 
 } else if ($siteformatoptions['numsections'] > 0) {
-    echo $courserenderer->frontpage_section1();
+    //echo $courserenderer->frontpage_section1();
 }
 // Include course AJAX.
 include_course_ajax($SITE, $modnamesused);
 
-echo $courserenderer->frontpage();
+//echo $courserenderer->frontpage();
 
 if ($editing && has_capability('moodle/course:create', context_system::instance())) {
     echo $courserenderer->add_new_course_button();

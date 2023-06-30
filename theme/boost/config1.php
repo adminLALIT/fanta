@@ -29,7 +29,6 @@ require_once(__DIR__ . '/lib.php');
 $THEME->name = 'boost';
 $THEME->sheets = [];
 $THEME->editor_sheets = [];
-$THEME->sheets = array('custom');
 $THEME->editor_scss = ['editor'];
 $THEME->usefallback = true;
 $THEME->scss = function($theme) {
@@ -67,16 +66,8 @@ $THEME->layouts = [
         'defaultregion' => 'side-pre',
     ),
     // The site home page.
-
-    // The site home page.
     'frontpage' => array(
-        'file' => 'frontpage.php',
-        'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre',
-        'options' => array('nonavbar' => true),
-    ),
-    'frontpage_team' => array(
-        'file' => 'frontpage_team.php',
+        'file' => 'columns2.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
         'options' => array('nonavbar' => true),

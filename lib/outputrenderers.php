@@ -333,7 +333,10 @@ class renderer_base {
      * @return moodle_url|false
      */
     public function get_logo_url($maxwidth = null, $maxheight = 200) {
-        global $CFG;
+        global $CFG, $DB;
+        $domain_get=explode('.', @$_SERVER['HTTP_HOST']);
+        $domain = $domain_get[0];
+        
         $logo = get_config('core_admin', 'logo');
         if (empty($logo)) {
             return false;
@@ -344,10 +347,18 @@ class renderer_base {
 
         // Hide the requested size in the file path.
         $filepath = ((int) $maxwidth . 'x' . (int) $maxheight) . '/';
-
-        // Use $CFG->themerev to prevent browser caching when the file changes.
-        return moodle_url::make_pluginfile_url(context_system::instance()->id, 'core_admin', 'logo', $filepath,
-            theme_get_revision(), $logo);
+        if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
+            $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");
+            require_once($CFG->dirroot.'/local/team_coach/lib.php');
+          $logo_url = get_logo_by_theme_id($themerecord->id);
+          return $logo_url;
+        }
+        else {
+            # code...
+            // Use $CFG->themerev to prevent browser caching when the file changes.
+            return moodle_url::make_pluginfile_url(context_system::instance()->id, 'core_admin', 'logo', $filepath,
+                theme_get_revision(), $logo);
+        }
     }
 
     /**
@@ -1314,7 +1325,6 @@ class core_renderer extends renderer_base {
         $layoutfile = $this->page->theme->layout_file($this->page->pagelayout);
         // Render the layout using the layout file.
         $rendered = $this->render_page_layout($layoutfile);
-
         // Slice the rendered output into header and footer.
         $cutpos = strpos($rendered, $this->unique_main_content_token);
         if ($cutpos === false) {

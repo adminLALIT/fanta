@@ -32,6 +32,9 @@ redirect_if_major_upgrade_required();
 global $DB;
 $testsession = optional_param('testsession', 0, PARAM_INT); // test session works properly
 $anchor      = optional_param('anchor', '', PARAM_RAW);     // Used to restore hash anchor to wantsurl.
+$username = optional_param('username', '', PARAM_TEXT); //  define username
+$password = optional_param('password', '', PARAM_TEXT); //  define password
+$sesskey = optional_param('sesskey', null, PARAM_RAW);; //  define password
 
 $resendconfirmemail = optional_param('resendconfirmemail', false, PARAM_BOOL);
 purge_caches();
@@ -173,10 +176,38 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
         $user = false;    /// Can't log in as guest if guest button is disabled
         $frm = false;
     } else {
-        if (empty($errormsg)) {
-            $logintoken = isset($frm->logintoken) ? $frm->logintoken : '';
-            $user = authenticate_user_login($frm->username, $frm->password, false, $errorcode, $logintoken);
+        // if (empty($errormsg)) {
+        //     $logintoken = isset($frm->logintoken) ? $frm->logintoken : '';
+        //     $user = authenticate_user_login($frm->username, $frm->password, false, $errorcode, $logintoken);
+        // }
+
+        if ($username && $password) {
+
+            $token = isset($sesskey) ? $sesskey : '';
+            if ($token !== sesskey()) {
+                // If token is invalid, display an error message
+                print_error('invalidtoken', 'error', $returnurl);
+            } else {
+                $logintoken = \core\session\manager::get_login_token();
+
+                $user = authenticate_user_login($username, $password, false, $errorcode, $logintoken);
+
+                if (!$user) {
+                    redirect('/');
+                }
+            }
+            if (empty($username)) {
+
+                redirect('/');
+
+            }
+            if (empty($password)) {
+                redirect('/');
+
+            }
+
         }
+
     }
 
     // Intercept 'restored' users to provide them with info & reset password

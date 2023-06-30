@@ -1,0 +1,91 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    Page footer.
+}}
+
+<div id="goto-top-link">
+    {{! go to top is sticky to footer so needs to be sibling }}
+    <a class="btn btn-light" role="button" href="#">
+        {{#pix}} i/up, core, {{#str}} totop, theme_boost {{/str}}{{/pix}}
+    </a>
+</div>
+
+<!--
+<footer id="page-footer" class="py-3 bg-dark text-light">
+    <div class="container">
+        <div id="course-footer">{{{ output.course_footer }}}</div>
+
+        {{# output.page_doc_link }}
+            <p class="helplink">{{{ output.page_doc_link }}}</p>
+        {{/ output.page_doc_link }}
+
+        {{{ output.login_info }}}
+        <div class="tool_usertours-resettourcontainer"></div>
+        {{{ output.home_link }}}
+        <nav class="nav navbar-nav d-md-none" aria-label="{{#str}}custommenu, admin{{/str}}">
+            {{# output.custom_menu_flat }}
+                <ul class="list-unstyled pt-3">
+                    {{> theme_boost/custom_menu_footer }}
+                </ul>
+            {{/ output.custom_menu_flat }}
+        </nav>
+        {{{ output.standard_footer_html }}}
+        {{{ output.standard_end_of_body_html }}}
+    </div>
+</footer>
+-->
+
+<!---->
+
+<footer class="footer" id="" style="clear:both">
+   
+
+
+  <div class="container">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="d-flex">
+                  <img src="{{config.wwwroot}}/theme/boost/layout/images/Logo_EU_co-funded 1.png" alt="logo" class="logo" loading="lazy">
+                </div>
+                <div class="mt-4 footer-logo">
+                  <p>Team-COACH is co-funded by the European Union (EU4H-2021-PJ-14 – GA Nº101079939 – TEAM-COACH). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or HaDEA. Neither the European Union nor the granting authority can be held responsible for them.</p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="icon-footer">
+                  <div class="content">
+                <div class="twitter-icon">
+                  <i class="fa fa-twitter"></i>
+                </div>
+                </div>
+                <div class="privacy-policy">
+                  <p>Privacy Policy <span style="color: #000;">| </span> Credits</p>
+                </div>
+              </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="messgae">
+                <h6>GET IN TOUCH!</h6>
+                <p><i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>abcd123@gmail.com</p>
+              </div>
+              </div>
+            </div>
+          </div>
+       
+</footer>
+
