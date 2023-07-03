@@ -41,6 +41,7 @@ $string['menu_index']= 'Menu Index';
 $string['banner_title']= 'Banner Title';    
 $string['banner_desc']= 'Banner Description';   
 $string['banner_img']= 'Banner Image';    
+$string['titleexist']= 'Title exists';    
 $string['bannertitleexists']= 'Banner Title exists';     
 $string['section_title']= 'Section Title';    
 $string['descrip_editor']= 'Section Description';   
@@ -56,6 +57,15 @@ $string['content_title']= 'Content Title';
 $string['contentdesc_editor']= 'Content Description'; 
 $string['content_index']= 'Content Index';      
 $string['footercontentexists']= 'Already exists';       
-$string['indexexists']= 'Already exists';       
+$string['indexexists']= 'Already exists'; 
+$string['bannertitle']= 'Banner Title'; 
+$string['bannerurl']= 'Banner URL'; 
+$string['bannertext']= 'Banner Paragraph Text'; 
+$string['banner_logo']= 'Banner Logo'; 
+$string['banner_img']= 'Upload Image';  
+$string['subbannerdesc_editor']= 'Desscription';  
+$string['backgroundcolor']= 'Background Color';   
+$string['textcolor']= 'Text Color';   
+
 
 ?>

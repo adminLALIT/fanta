@@ -26,8 +26,6 @@
             <img src="{{logourl}}" title="{{sitename}}" alt="{{sitename}}" class="img-fluid logo-img">
             
           </a>
-    
-     
     <div class="ml-auto d-flex">
       <nav id="navbar" class="navbar">
         <ul class="">
@@ -37,15 +35,17 @@
           <li><a href="#events">CONTACT US</a></li>
         </ul>
       </nav><!-- .navbar -->
-          <form class="example" action="#" style="margin:auto;max-width:300px">
-            <input type="text" placeholder="Search.." name="search2">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-
-          <select class="lang border-0 border-bottom" data-width="fit">
-            <option data-content=' English'>English</option>
-          <option  data-content='Español'>Español</option>
-        </select>
+      
+            <ul class="nav navbar-nav ml-auto">
+            <li class="d-none d-lg-block">
+          <form class="search-input-form expanded example" action="{{{config.wwwroot}}}/search/index.php" style="margin:auto;max-width:300px"><label for="id_q_64a2ca32adb80" class="accesshide">Enter your search query</label><input type="text" name="q" placeholder="Search" size="13" tabindex="-1" id="id_q_64a2ca32adb80" class="form-control"><input type="hidden" name="context" value=""></form>
+              
+            </li>
+        </ul>
+  
+          <ul class="navbar-nav d-none d-md-flex">
+            {{{ output.custom_menu }}}
+        </ul>
 
       </div>
           <i class="mobile-nav-toggle mobile-nav-show fa fa-bars"></i>
@@ -57,4 +57,6 @@
 
 <script type="text/javascript" src="{{config.wwwroot}}/theme/boost/layout/js/teamcoach.js"></script>
 <script type="text/javascript" src="{{config.wwwroot}}/theme/boost/layout/js/flickity.pkgd.min.js"></script>
+
+
 

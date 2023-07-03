@@ -27,7 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 global $DB, $COURSE, $PAGE, $OUTPUT, $USER;
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
-require_once($CFG->dirroot.'/local/team_coach/lib.php');
+require_once($CFG->dirroot . '/local/team_coach/lib.php');
+
+$PAGE->requires->js_call_amd('core/search-input', 'init');
 
 $domain_get = explode('.', @$_SERVER['HTTP_HOST']);
 $domain = $domain_get[0];
@@ -49,16 +51,40 @@ $buildregionmainsettings = !$PAGE->include_region_main_settings_in_header_action
 $regionmainsettingsmenu = $buildregionmainsettings ? $OUTPUT->region_main_settings_menu() : false;
 
 $partnerlogs = [];
-// get partner logos
+$sections = [];
+$themesubanners = [];
+$footercontent = [];
 if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
     $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");
+
+    // get section data
+    $sectiondata = $DB->get_records('theme_section', ['theme_id' => $themerecord->id], $sort='section_index ASC');
+    foreach ($sectiondata as $sectionvalue) {
+        $logo_url = get_sectionimage_by_id($sectionvalue->id);
+        $sections[] = ['logo' => $logo_url, 'title' => $sectionvalue->section_title, 'description' => $sectionvalue->descrip];
+    }
+
+    // get partner logos
     $partnerdata = $DB->get_records('theme_partner', ['theme_id' => $themerecord->id]);
-    foreach($partnerdata as $partnerimage){
+    foreach ($partnerdata as $partnerimage) {
         $logo_url = get_partnerimage_by_id($partnerimage->id);
         $partnerlogs[] = ['logo' => $logo_url, 'url' => $partnerimage->partner_link];
     }
-}
 
+    // get subbanners
+    $subbanners = $DB->get_records('theme_subbanner', ['themeid' => $themerecord->id]);
+    foreach ($subbanners as $subvalue) {
+        $logo_url = get_subbanner_logo_by_bannerid($subvalue->id);
+        $themesubanners[] = ['logo' => $logo_url, 'url' => $subvalue->bannerurl, 'title' => $subvalue->bannertitle, 'text' => $subvalue->bannertext, 'background' => $subvalue->backgroundcolor];
+    }
+
+    // get footer content
+    $footer = $DB->get_records('theme_footer_content', ['theme_id' => $themerecord->id], $sort='content_index ASC');
+    foreach ($footer as $content) {
+        $footercontent[] = ['title' => $content->content_title, 'text' => $content->contentdesc];
+    }
+
+}
 
 $loginurl = $CFG->wwwroot . "/login/index.php";
 $errormsg = '';
@@ -119,7 +145,11 @@ $templatecontext = [
     'fpgo' => $go,
     'logintxttestimonials' => $logintxttestimonials,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
-    'partnerlogs'=> $partnerlogs
+    'partnerlogs' => $partnerlogs,
+    'sections' => $sections,
+    'themesubanners' => $themesubanners,
+    'footercontent' => $footercontent,
+    'id' => 123,
 ];
 $nav = $PAGE->flatnav;
 $templatecontext['flatnavigation'] = $nav;

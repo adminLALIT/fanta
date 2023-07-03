@@ -105,4 +105,45 @@ function get_partnerimage_by_id($id){
       return null;
     }
 }
+
+function get_subbanner_logo_by_bannerid($id){
+  global $CFG;
+  $context = context_system::instance();
+  $fs = get_file_storage();
+  // get the image
+  $files = $fs->get_area_files($context->id, 'local_team_coach', 'banner', $id, "timemodified", false);
+    foreach ($files as $file) {
+      $filename = $file->get_filename();
+      $mimetype = $file->get_mimetype();
+      $imageurl = file_encode_url($CFG->wwwroot . '/pluginfile.php', '/' . $context->id . '/local_team_coach/banner/' . $id . '/' . $filename);
+    }
+    if ($imageurl) {
+      # code...
+      return $imageurl;
+    }
+    else {
+      return null;
+    }
+}
+
+function get_subbanner_image_by_bannerid($id){
+  global $CFG;
+  $context = context_system::instance();
+  $fs = get_file_storage();
+  // get the image
+  $files = $fs->get_area_files($context->id, 'local_team_coach', 'bannerimg', $id, "timemodified", false);
+    foreach ($files as $file) {
+      $filename = $file->get_filename();
+      $mimetype = $file->get_mimetype();
+      $imageurl = file_encode_url($CFG->wwwroot . '/pluginfile.php', '/' . $context->id . '/local_team_coach/bannerimg/' . $id . '/' . $filename);
+    }
+    if ($imageurl) {
+      return $imageurl;
+    }
+    else {
+      return null;
+    }
+}
+
+
 ?>

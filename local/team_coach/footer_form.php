@@ -47,6 +47,7 @@ class content_form extends moodleform
 
         $accept_types = ['.png', '.jpg', '.gif', '.svg', '.jpeg', '.ico'];
         $mform->addElement('hidden', 'contentid', $id);
+        $mform->setType('contentid', PARAM_INT);
 
         $mform->addElement('select', 'theme_id', get_string('select_theme', 'local_team_coach'), $select_theme, ['readonly']);
         $mform->addRule('theme_id', get_string('required'), 'required', null, 'server');

@@ -127,67 +127,29 @@
 <div class="e-learning">
             <div class="container">
               <div class="row">
+                {{#themesubanners}}
                 <div class="col-lg-4 col-md-6 mb-2">
-                 <div class="card card-1">
+                 <div class="card card-1" style="background:{{background}};">
                     <div class="card-content">
                         <div class="row">
                           <div class="col-lg-12">
-                            <h4>The Antimicrobial Resistance</h4>
+                            <h4>{{title}}</h4>
                           </div>
                           <div class="col-lg-3 col-md-3">
-                            <img src="{{config.wwwroot}}/theme/boost/layout/images/bacteria-icon 1.png" alt="" class="img-fluid">
+                            <img src="{{logo}}" alt="" class="img-fluid">
                           </div>
                           <div class="col-lg-9 col-md-9">
-                            <p>Unnecessary and inappropriate prescribing of antibiotics, along with inadequate Infection Prevention and Control (IPC) measures play a crucial role in the growing issue of antimicrobial resistance (‘AMR')...</p>
+                            <p>{{text}}</p>
                           </div>
                         </div>
                     </div>
                     <div class="viewmore mb-2 mt-2">
-                      <a href="./inner-pages/antimicrobial.html" class=""><h5 class="text-end text-white">VIEW MORE <i class="fa fa-angle-double-right ml-2" aria-hidden="true"></i></h5></a>
+                      <a href="{{url}}" class=""><h5 class="text-end text-white">VIEW MORE <i class="fa fa-angle-double-right ml-2" aria-hidden="true"></i></h5></a>
                     </div>
                  </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                  <div class="card card-2">
-                    <div class="card-content">
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <h4>The Team-COACH Response</h4>
-                        </div>
-                        <div class="col-lg-3 col-md-3">
-                          <img src="{{config.wwwroot}}/theme/boost/layout/images/four-hand.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                          <p>Team-COACH is a three-year project co-funded by the European Health and Digital Executive Agency (HaDEA) and led by a consortium of experienced partners in Spain, Italy, and Greece...</p>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="viewmore mb-2 mt-2">
-                    <a href="#" class=""><h5 class="text-end text-white">VIEW MORE <i class="fa fa-angle-double-right ml-2" aria-hidden="true"></i></h5></a>
-                  </div>
-                  </div>
-                 </div>
-                 <div class="col-lg-4 col-md-6 mb-2">
-                  <div class="card card-3">
-                    <div class="card-content">
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <h4>News</h4>
-                        </div>
-                        <div class="col-lg-3 col-md-3">
-                          <img src="{{config.wwwroot}}/theme/boost/layout/images/audio.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                          <p>Penta is now actively engaged in clinical research in a variety of paediatric infectious diseases. We are currently developing other new, innovative training programmes to reflect this!</p>
-                          </div>
-                          
-                          </div>
-                        </div>
-                        <div class="viewmore mb-2 mt-2">
-                          <a href="#" class=""><h5 class="text-end text-white">VIEW MORE <i class="fa fa-angle-double-right ml-2" aria-hidden="true"></i></h5></a>
-                        </div>
-                      </div>
-                  </div>
+                  {{/themesubanners}}
+
                   </div>
                  </div>
                  <!-- e-learning -->
@@ -224,57 +186,17 @@
                   <h2 class="text-center mb-3">Key Features of the Team-COACH Training Programme</h2>
                 </div>
                 </div>
-                <div class="row mt-4">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="key-bg ">
-                      <img src="{{config.wwwroot}}/theme/boost/layout/images/internet 1.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-                      <p>Online Training Platform available for computer, laptop, and smartphone</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                  <div class="key-bg ">
-                    <img src="{{config.wwwroot}}/theme/boost/layout/images/Group.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-                    <p>Content on infection prevention and control and antimicrobial stewardship</p>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="key-bg ">
-                  <img src="{{config.wwwroot}}/theme/boost/layout/images/Pediatric.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-                  <p>Focus on Paediatric care</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="key-bg ">
-                <img src="{{config.wwwroot}}/theme/boost/layout/images/Medical Team.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-                <p>Dedicated to healthcare professionals including doctors, nurses and cleaning personnel</p>
-              </div>
-          </div>
-        </div>
         <div class="row">
+          {{#sections}}
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="key-bg ">
-              <img src="{{config.wwwroot}}/theme/boost/layout/images/healthcare 1.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-              <p>Settings: Inpatient and outpatient</p>
+              <img src="{{logo}}" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
+              <p>{{title}}</p>
+              {{{description}}}
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="key-bg ">
-            <img src="{{config.wwwroot}}/theme/boost/layout/images/social-services 1.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-            <p>Secondary and primary healthcare services</p>
-          </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="key-bg ">
-          <img src="{{config.wwwroot}}/theme/boost/layout/images/monitoring 1.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-          <p>Measuring and monitoring the impact of the training</p>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-      <div class="key-bg ">
-        <img src="{{config.wwwroot}}/theme/boost/layout/images/languages 1.png" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
-        <p>Available in different languages: English, Spanish, Italian, Greek</p>
-      </div>
-  </div>
+        {{/sections}}
+
               </div>
             </div>
           </div>
@@ -337,7 +259,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                               <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" >
                                 <label class="form-check-label" for="flexCheckChecked">Remember me?</label>
                               </div>
                               <div class="forgot">
@@ -382,7 +304,7 @@
                             <div class="col-lg-6">
                             <div class="form-group">
                               <label for="exampleInputPassword1" class="required">Password</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="password" class="form-control" id="exampleInputPassword12" placeholder="Password">
                             </div>
                           </div>
 
@@ -400,35 +322,35 @@
                               <div class="row m-0">
                                 <div class="col-lg-6 p-0">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
                                   <label class="form-check-label" for="flexCheckChecked">Lead of a Clinical Unit</label>
                                 </div>
                               </div>
                          
                               <div class="col-lg-6 p-0">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3">
                                   <label class="form-check-label" for="flexCheckChecked">Doctor (including medical student)</label>
                                 </div>
                               </div>
                           
                               <div class="col-lg-6 p-0">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4">
                                   <label class="form-check-label" for="flexCheckChecked">Nurse / Nurse Assistant</label>
                                 </div>
                               </div>
 
                               <div class="col-lg-6 p-0">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked6">
                                   <label class="form-check-label" for="flexCheckChecked">Cleaning Personnel</label>
                                 </div>
                               </div>
 
                               <div class="col-lg-6 p-0">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked7">
                                   <label class="form-check-label" for="flexCheckChecked">Other</label>
                                 </div>
                               </div>
@@ -452,14 +374,14 @@
                                 <div class="col-lg-8">
                                   <div class="form-group mt-2">
                                     <label for="exampleInputPassword1" class="Place-of-work required">Place of work</label>
-                                    <input type="text" class="form-control mb-0" id="exampleInputPassword1" placeholder="Place of work">
+                                    <input type="text" class="form-control mb-0" id="exampleInputPassword21" placeholder="Place of work">
                                   </div>
                                 </div>
                                 </div>
                                 <div class="row mt-2">
                                 <div class="col-lg-12">
                                   <div class="form-check mb-0 consent">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked8">
                                     <label class="form-check-label mb-0" for="flexCheckChecked">I give consent to the use of my personal data for…</label>
                                   </div>
                                 </div>
@@ -523,10 +445,10 @@
                       </div>
                           <form>
                             <div class="form-group">
-                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your name">
+                              <input type="text" class="form-control" id="exampleInputPassword11" placeholder="Enter your name">
                             </div>
                             <div class="form-group">
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email address">
+                              <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter your email address">
                             </div>
                             <div class="form-group">
                               <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Go ahead, We are listening..."></textarea>
@@ -544,7 +466,7 @@
                       </div>
                       <div class="mt-2">
                         <div class="form-check mt-4">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked9">
                           <label class="form-check-label" for="flexCheckChecked">If you wish to contact us using the form below, please, have a look at our <a href="#">Privacy Policy</a></label>
                         </div>
                         <div class="form-check mt-3">
@@ -593,5 +515,10 @@ M.util.js_pending('theme_boost/drawer');
 require(['theme_boost/drawer'], function(drawer) {
     drawer.init();
     M.util.js_complete('theme_boost/drawer');
+});
+M.util.js_pending('theme_boost/dropdown');
+require(['theme_boost/dropdown'], function(dropdown) {
+    dropdown.init();
+    M.util.js_complete('theme_boost/dropdown');
 });
 {{/js}}

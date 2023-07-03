@@ -122,6 +122,8 @@ if ($mform->is_cancelled()) {
         $fromform->time_modified = time();
         if ($fromform->descrip_editor) {
             $data = file_postupdate_standard_editor($fromform, 'descrip', $editoroptions, context_system::instance(), 'local_team_coach', 'descrip', $fromform->sectionid);
+            // var_dump($data);
+            // die;
             $DB->set_field('theme_section', 'descrip', $data->descrip, array('id'=>$fromform->sectionid));
             $DB->set_field('theme_section', 'descformat', $data->descripformat, array('id'=>$fromform->sectionid));
         }

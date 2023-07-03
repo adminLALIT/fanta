@@ -38,6 +38,7 @@ class menu_list_mform extends moodleform {
         $select_theme = array('' => 'Select') + $select_theme;
         
         $mform->addElement('hidden', 'themeid', $id);
+        $mform->setType('themeid', PARAM_INT);
 
         $mform->addElement('select', 'theme_id', get_string('select_theme','local_team_coach'), $select_theme);
         $this->add_action_buttons();

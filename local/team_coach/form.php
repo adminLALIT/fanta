@@ -40,6 +40,7 @@ class theme_form extends moodleform
 
         $accept_types = ['.png', '.jpg', '.gif', '.svg', '.jpeg', '.ico'];
         $mform->addElement('hidden', 'themeid', $id);
+        $mform->setType('themeid', PARAM_INT);
 
         $mform->addElement('text', 'url', get_string('url', 'local_team_coach'));
         $mform->addRule('url', get_string('required'), 'required', 'extraruledata', 'server', false, false);

@@ -54,36 +54,16 @@
 
 <footer class="footer" id="" style="clear:both">
    
-
-
   <div class="container">
             <div class="row">
+              {{#footercontent}}
               <div class="col-lg-4">
                 <div class="d-flex">
-                  <img src="{{config.wwwroot}}/theme/boost/layout/images/Logo_EU_co-funded 1.png" alt="logo" class="logo" loading="lazy">
+                  <p>{{title}}</p>
                 </div>
-                <div class="mt-4 footer-logo">
-                  <p>Team-COACH is co-funded by the European Union (EU4H-2021-PJ-14 – GA Nº101079939 – TEAM-COACH). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or HaDEA. Neither the European Union nor the granting authority can be held responsible for them.</p>
-                </div>
+                {{{text}}}
               </div>
-              <div class="col-lg-4">
-                <div class="icon-footer">
-                  <div class="content">
-                <div class="twitter-icon">
-                  <i class="fa fa-twitter"></i>
-                </div>
-                </div>
-                <div class="privacy-policy">
-                  <p>Privacy Policy <span style="color: #000;">| </span> Credits</p>
-                </div>
-              </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="messgae">
-                <h6>GET IN TOUCH!</h6>
-                <p><i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>abcd123@gmail.com</p>
-              </div>
-              </div>
+             {{/footercontent}}
             </div>
           </div>
        
