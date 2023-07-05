@@ -145,5 +145,24 @@ function get_subbanner_image_by_bannerid($id){
     }
 }
 
+function get_contactus_logo_by_themeid($id){
+  global $CFG;
+  $context = context_system::instance();
+  $fs = get_file_storage();
+  // get the image
+  $files = $fs->get_area_files($context->id, 'local_team_coach', 'contactus', $id, "timemodified", false);
+    foreach ($files as $file) {
+      $filename = $file->get_filename();
+      $mimetype = $file->get_mimetype();
+      $imageurl = file_encode_url($CFG->wwwroot . '/pluginfile.php', '/' . $context->id . '/local_team_coach/contactus/' . $id . '/' . $filename);
+    }
+    if ($imageurl) {
+      return $imageurl;
+    }
+    else {
+      return null;
+    }
+}
+
 
 ?>

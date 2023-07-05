@@ -57,6 +57,11 @@ class theme_form extends moodleform
             # code...
             $mform->addRule('image_filemanager', get_string('required'), 'required');
         }
+        $mform->addElement('filemanager', 'contactus_filemanager', get_string('contact', 'local_team_coach'), null, $editoroptions);
+        if (!$id) {
+            # code...
+            $mform->addRule('contactus_filemanager', get_string('required'), 'required');
+        }
 
         $mform->addElement('text', 'theme_color', get_string('theme_color', 'local_team_coach'));
         $mform->addRule('theme_color', get_string('required'), 'required', 'extraruledata', 'server', false, false);
@@ -93,7 +98,8 @@ class theme_form extends moodleform
             if ($DB->record_exists('theme_detail', array('name' => $data->name, 'userid' => $USER->id))) {
                 $validated['name'] = get_string('nameexists', 'local_team_coach');
             }
-            if ($DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id))) {
+            // if ($DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id))) {
+            if ($DB->record_exists_sql("SELECT td.* FROM {theme_detail} td WHERE td.url = '$data->url' AND td.userid = $USER->id")) {
                 $validated['url'] = get_string('urlexists', 'local_team_coach');
             }
         } else {
@@ -103,7 +109,8 @@ class theme_form extends moodleform
                 }
             }
 
-            if (!$DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id, 'id' => $data->themeid))) {
+            // if (!$DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id, 'id' => $data->themeid))) {
+            if (!$DB->record_exists_sql("SELECT td.* FROM {theme_detail} td WHERE td.url = '$data->url' AND td.userid = $USER->id AND td.id = $data->themeid")) {
                 if ($DB->record_exists('theme_detail', array($url_column => $data->url, 'userid' => $USER->id))) {
                     $validated['url'] = get_string('urlexists', 'local_team_coach');
                 }

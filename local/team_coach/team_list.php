@@ -56,6 +56,8 @@ echo '&nbsp;&nbsp;&nbsp;';
 echo html_writer::link($CFG->wwwroot.'/local/team_coach/subbanner_list.php', 'Manage Sub Banners', ['class'=>'btn btn-secondary']);
 echo '&nbsp;&nbsp;&nbsp;';
 echo html_writer::link($CFG->wwwroot.'/local/team_coach/index.php', 'Add New Theme', ['class'=>'btn btn-secondary']);
+echo '&nbsp;&nbsp;&nbsp;';
+echo html_writer::link($CFG->wwwroot.'/local/team_coach/profilefield_list.php', 'Add Profile fields', ['class'=>'btn btn-secondary']);
 echo html_writer::end_tag('div');
 echo '<br><br>';
 

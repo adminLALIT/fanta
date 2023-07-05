@@ -23,7 +23,7 @@
  defined('MOODLE_INTERNAL') || die;
 
 $plugin->component = 'local_team_coach'; // plugin folder name
-$plugin->version = 2023051116; // plugin version (YYYYMMDDXX)
+$plugin->version = 2023051121; // plugin version (YYYYMMDDXX)
 $plugin->requires = 2019051100; // Moodle version required
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '1.0.0'; // release name

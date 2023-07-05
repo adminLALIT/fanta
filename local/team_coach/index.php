@@ -57,6 +57,15 @@ if ($id) {
     'id' => $id
     ), '*', MUST_EXIST);
     $instance = file_prepare_standard_filemanager(
+        $instance,
+        'contactus',
+        $editoroptions,
+        context_system::instance(),
+        'local_team_coach',
+        'contactus',
+        $instance->id
+        );
+    file_prepare_standard_filemanager(
     $instance,
     'image',
     $editoroptions,
@@ -103,7 +112,6 @@ if ($id) {
     );
 }
 
-
 $mform = new theme_form($CFG->wwwroot . '/local/team_coach/index.php?id=' . $id, array(
   'editoroptions' => $editoroptions, $instance
 ));
@@ -117,6 +125,15 @@ if ($mform->is_cancelled()) {
     if ($fromform->themeid) {  // If we edit the theme.
         $fromform->id = $fromform->themeid;
         $fromform->time_modified = time();
+        file_postupdate_standard_filemanager(
+            $fromform,
+            'contactus',
+            $editoroptions,
+            context_system::instance(),
+            'local_team_coach',
+            'contactus',
+            $fromform->id
+          );
         $ins = file_postupdate_standard_filemanager(
           $fromform,
           'image',
@@ -134,10 +151,19 @@ if ($mform->is_cancelled()) {
     } else {  // Create a new theme.
 
         $fromform->userid = $USER->id;
-        $fromform->fileid = $fileid;
+        // $fromform->fileid = $fileid;
         $fromform->time_created = time();
         $learnid = $DB->insert_record('theme_detail', $fromform, $returnid = true, $bulk = false);
         $editoroptions['context'] = $context;
+        file_postupdate_standard_filemanager(
+            $fromform,
+            'contactus',
+            $editoroptions,
+            context_system::instance(),
+            'local_team_coach',
+            'contactus',
+            $learnid
+          );
         $ins = file_postupdate_standard_filemanager(
           $fromform,
           'image',

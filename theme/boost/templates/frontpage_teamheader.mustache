@@ -19,31 +19,36 @@
 }}
 
 <link rel="stylesheet" type="text/css" href="{{config.wwwroot}}/theme/boost/layout/css/teamcoach.css"/>
-  <header id="header" class="header d-flex align-items-center">
+  <header id="header" class="header d-flex align-items-center page-header">
         <div class="container-fluid d-flex align-items-center justify-content-between">
     
           <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
             <img src="{{logourl}}" title="{{sitename}}" alt="{{sitename}}" class="img-fluid logo-img">
             
           </a>
+    
+     
     <div class="ml-auto d-flex">
       <nav id="navbar" class="navbar">
         <ul class="">
-          <li><a href="#hero" class="active">HOME</a></li>
+          <li><a href="#Home">HOME</a></li>
           <li><a href="#login">LOGIN</a></li>
           <li><a href="#">COURSE CATALOGUE</a></li>
-          <li><a href="#events">CONTACT US</a></li>
+          <li><a href="#contact">CONTACT US</a></li>
         </ul>
       </nav><!-- .navbar -->
-      
-            <ul class="nav navbar-nav ml-auto">
-            <li class="d-none d-lg-block">
-          <form class="search-input-form expanded example" action="{{{config.wwwroot}}}/search/index.php" style="margin:auto;max-width:300px"><label for="id_q_64a2ca32adb80" class="accesshide">Enter your search query</label><input type="text" name="q" placeholder="Search" size="13" tabindex="-1" id="id_q_64a2ca32adb80" class="form-control"><input type="hidden" name="context" value=""></form>
-              
-            </li>
+          {{! <form class="example" action="#" style="margin:auto;max-width:300px">
+            <input type="text" placeholder="Search.." name="search2">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form> }}
+        <ul>
+          <form class="example" action="{{{config.wwwroot}}}/course/search.php" id="coursesearch" method="get" style="margin:auto;max-width:300px">
+            <input id="coursesearchbox" class="headerinputsearch" name="q" type="text" size="30" value="" placeholder="search">
+            <input name="areaids" type="hidden" value="core_course-course" >
+            <button class="btn btn-secondary headergobtn" type="submit" style="background:{{themecolor}};"><i class="fa fa-search"></i></button>
+          </form>
         </ul>
-  
-          <ul class="navbar-nav d-none d-md-flex">
+           <ul class="navbar-nav d-none d-md-flex">
             {{{ output.custom_menu }}}
         </ul>
 
@@ -53,10 +58,8 @@
     
         </div>
       </header><!-- End Header -->
-  
 
 <script type="text/javascript" src="{{config.wwwroot}}/theme/boost/layout/js/teamcoach.js"></script>
 <script type="text/javascript" src="{{config.wwwroot}}/theme/boost/layout/js/flickity.pkgd.min.js"></script>
-
 
 

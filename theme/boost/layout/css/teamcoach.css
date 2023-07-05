@@ -787,7 +787,7 @@ background: #404040;
   background: #fff;
     border-radius: 30px;
     padding: 20px 10px;
-    height:264px;
+    height:459px;
     width:90%;
     margin:0 auto 30px;
     
@@ -875,7 +875,6 @@ overflow:hidden;
   color:#8E8E8E;
 }
 .login-content .login-btn{
-  background-color:#D9B5AF !important;
   color:#fff;
   height:50px;
   font-size: 20px;
@@ -914,7 +913,7 @@ width:100%;
   color:#D9B5AF;
 }
 .register-btn{
-  background-color:#D9B5AF !important;
+  /* background-color:#D9B5AF !important; */
   color:#fff;
   height:50px;
   font-size: 20px;
@@ -1051,7 +1050,7 @@ background-color:#F5F5FF;
         border: none;
 }
 .get-in-touch-btn{
-  background: #D9B5AF !important;
+  /* background: #D9B5AF !important; */
   color:#fff;
   Height:50px;
   font-size: 20px;

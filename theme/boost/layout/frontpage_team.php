@@ -28,8 +28,13 @@ global $DB, $COURSE, $PAGE, $OUTPUT, $USER;
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
 require_once($CFG->dirroot . '/local/team_coach/lib.php');
+$query = optional_param('query', '', PARAM_TEXT);
 
-$PAGE->requires->js_call_amd('core/search-input', 'init');
+if ($query) {
+    $querystatus = 'Query Sent Successfully.';
+} else {
+    $querystatus = '';
+}
 
 $domain_get = explode('.', @$_SERVER['HTTP_HOST']);
 $domain = $domain_get[0];
@@ -54,36 +59,84 @@ $partnerlogs = [];
 $sections = [];
 $themesubanners = [];
 $footercontent = [];
+$bannercontent = [];
+$profilecontent = [];
+$place = '';
+$profession = '';
+$policy = '';
+
 if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
     $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");
-
-    // get section data
-    $sectiondata = $DB->get_records('theme_section', ['theme_id' => $themerecord->id], $sort='section_index ASC');
-    foreach ($sectiondata as $sectionvalue) {
-        $logo_url = get_sectionimage_by_id($sectionvalue->id);
-        $sections[] = ['logo' => $logo_url, 'title' => $sectionvalue->section_title, 'description' => $sectionvalue->descrip];
+    $themecolor = $themerecord->theme_color;
+    $contactuslogo = get_contactus_logo_by_themeid($themerecord->id);
+    // Get section data.
+    $sectiondata = $DB->get_records('theme_section', ['theme_id' => $themerecord->id], $sort = 'section_index ASC');
+    if ($sectiondata) {
+        foreach ($sectiondata as $sectionvalue) {
+            $logo_url = get_sectionimage_by_id($sectionvalue->id);
+            $sections[] = ['logo' => $logo_url, 'title' => $sectionvalue->section_title, 'description' => $sectionvalue->descrip];
+        }
     }
 
-    // get partner logos
+    // Get partner logos.
     $partnerdata = $DB->get_records('theme_partner', ['theme_id' => $themerecord->id]);
-    foreach ($partnerdata as $partnerimage) {
-        $logo_url = get_partnerimage_by_id($partnerimage->id);
-        $partnerlogs[] = ['logo' => $logo_url, 'url' => $partnerimage->partner_link];
+    if ($partnerdata) {
+        foreach ($partnerdata as $partnerimage) {
+            $logo_url = get_partnerimage_by_id($partnerimage->id);
+            $partnerlogs[] = ['logo' => $logo_url, 'url' => $partnerimage->partner_link];
+        }
     }
 
-    // get subbanners
+    // Get subbanners.
     $subbanners = $DB->get_records('theme_subbanner', ['themeid' => $themerecord->id]);
-    foreach ($subbanners as $subvalue) {
-        $logo_url = get_subbanner_logo_by_bannerid($subvalue->id);
-        $themesubanners[] = ['logo' => $logo_url, 'url' => $subvalue->bannerurl, 'title' => $subvalue->bannertitle, 'text' => $subvalue->bannertext, 'background' => $subvalue->backgroundcolor];
+    if ($subbanners) {
+        foreach ($subbanners as $subvalue) {
+            $logo_url = get_subbanner_logo_by_bannerid($subvalue->id);
+            $themesubanners[] = ['logo' => $logo_url, 'url' => $subvalue->bannerurl, 'title' => $subvalue->bannertitle, 'text' => $subvalue->bannertext, 'background' => $subvalue->backgroundcolor];
+        }
     }
 
-    // get footer content
-    $footer = $DB->get_records('theme_footer_content', ['theme_id' => $themerecord->id], $sort='content_index ASC');
-    foreach ($footer as $content) {
-        $footercontent[] = ['title' => $content->content_title, 'text' => $content->contentdesc];
+    // Get footer content.
+    $footer = $DB->get_records('theme_footer_content', ['theme_id' => $themerecord->id], $sort = 'content_index ASC');
+    if ($footer) {
+        foreach ($footer as $content) {
+            $footercontent[] = ['title' => $content->content_title, 'text' => $content->contentdesc];
+        }
+    }
+    $active = ['active'];
+    $i = 0;
+    // Get banner content.
+    $banner = $DB->get_records('theme_banner', ['theme_id' => $themerecord->id]);
+    if ($banner) {
+        foreach ($banner as $content) {
+            $imageurl = get_banner_by_theme_id($content->id);
+            if (!empty($active[$i])) {
+                $initial = $active[$i];
+            } else {
+                $initial = '';
+            }
+            $bannercontent[] = ['image' => $imageurl, 'title' => $content->banner_title, 'text' => $content->banner_desc, 'active' => $initial];
+            $i++;
+        }
     }
 
+    // Get profile field data.
+    $profilefields = $DB->get_record('theme_profilefield', ['themeid' => $themerecord->id]);
+    $fields =  explode(",", $profilefields->profilefield);
+    if (in_array("place", $fields)) {
+        $place = 'place';
+    }
+    if (in_array("profession", $fields)) {
+        $profession = 'profession';
+    }
+    if (in_array("policy", $fields)) {
+        $policy = 'policy';
+    }
+    $profilecontent[] = ['place' => $place, 'profession' => $profession, 'policy' => $policy];
+
+} else {
+    $themecolor = '#D9B5AF';
+    $contactuslogo = '';
 }
 
 $loginurl = $CFG->wwwroot . "/login/index.php";
@@ -149,7 +202,11 @@ $templatecontext = [
     'sections' => $sections,
     'themesubanners' => $themesubanners,
     'footercontent' => $footercontent,
-    'id' => 123,
+    'bannercontent' => $bannercontent,
+    'themecolor' => $themecolor,
+    'status' => $querystatus,
+    'contactuslogo' => $contactuslogo,
+    'profilecontent' => $profilecontent,
 ];
 $nav = $PAGE->flatnav;
 $templatecontext['flatnavigation'] = $nav;

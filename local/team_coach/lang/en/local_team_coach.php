@@ -66,6 +66,9 @@ $string['banner_img']= 'Upload Image';
 $string['subbannerdesc_editor']= 'Desscription';  
 $string['backgroundcolor']= 'Background Color';   
 $string['textcolor']= 'Text Color';   
+$string['contact']= 'Contact Us Logo';   
+$string['profession']= 'Select Professions';   
+$string['profilefield']= 'Select Profile Field';    
 
 
 ?>

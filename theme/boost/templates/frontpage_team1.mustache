@@ -1,0 +1,496 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_boost/columns2
+
+    Admin time setting template.
+
+    Boost 2 column layout template.
+
+    Context variables required for this template:
+    * sitename - The name of the site
+    * output - The core renderer for the page
+    * bodyattributes - attributes for the body tag as a string of html attributes
+    * sidepreblocks - HTML for the blocks
+    * hasblocks - true if there are blocks on this page
+    * navdraweropen - true if the nav drawer should be open on page load
+    * regionmainsettingsmenu - HTML for the region main settings menu
+    * hasregionmainsettingsmenu - There is a region main settings menu on this page.
+
+    Example context (json):
+    {
+        "sitename": "Moodle",
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Test page",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Headings make html validators happier</h1>"
+         },
+        "bodyattributes":"",
+        "sidepreblocks": "<h2>Blocks html goes here</h2>",
+        "hasblocks":true,
+        "navdraweropen":true,
+        "regionmainsettingsmenu": "",
+        "hasregionmainsettingsmenu": false
+    }
+}}
+{{> theme_boost/head-teamfrontpage}}
+<script src="{{{config.wwwroot}}}/theme/boost/amd/src/jquery.js" crossorigin="anonymous"></script>
+<body {{{ bodyattributes }}}>
+{{> core/local/toast/wrapper}}
+
+<div id="page-wrapper" class="d-print-block">
+
+    {{{ output.standard_top_of_body_html }}}
+
+    {{> theme_boost/frontpage_teamheader}}
+ 
+<div class='team-coach'>
+     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+            {{#bannercontent}}
+              <div class="carousel-item active" style="background-image: url({{image}})">
+                <div class="content">
+                  <div class="container">
+                    <div class="row w-100">
+                      <div class="col-lg-8">
+                      <div class="content-bg">
+                          <h2>{{title}}</h2>
+                          <p>{{{text}}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+              </div>
+              {{/bannercontent}}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <!-- carousel -->
+
+<div class="e-learning">
+            <div class="container">
+              <div class="row">
+                {{#themesubanners}}
+                <div class="col-lg-4 col-md-6 mb-2">
+                 <div class="card card-1" style="background:{{background}};">
+                    <div class="card-content">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <h4>{{title}}</h4>
+                          </div>
+                          <div class="col-lg-3 col-md-3">
+                            <img src="{{logo}}" alt="" class="img-fluid">
+                          </div>
+                          <div class="col-lg-9 col-md-9">
+                            <p>{{text}}</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="viewmore mb-2 mt-2">
+                      <a href="{{url}}" class=""><h5 class="text-end text-white">VIEW MORE <i class="fa fa-angle-double-right ml-2" aria-hidden="true"></i></h5></a>
+                    </div>
+                 </div>
+                </div>
+                  {{/themesubanners}}
+
+                  </div>
+                 </div>
+                 <!-- e-learning -->
+              </div>
+         
+
+           <div class="partners text-center mt-4">
+          <div class="container bg">
+            <div class="row w-100">
+              <div class="col-lg-12">
+                <h2 class="mb-2">Team-COACH Consortium Partners</h2>
+                <!-- <p>Collaborating with others to drive our research agendas and deliver impacts  </p> -->
+                <div id="section1" class="mt-4">
+                  <div class="section1-inner">
+                    <div id="logos-container" class="carousel-flickity mb-4">
+                    {{#partnerlogs}}
+
+                     <a href="{{url}}"> <img class="carousel-cell carousel-logo" src="{{logo}}" alt='123'></a>
+                    {{/partnerlogs}}
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+        
+        <!-- -->
+          <div class="training-programme">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2 class="text-center mb-3">Key Features of the Team-COACH Training Programme</h2>
+                </div>
+                </div>
+        <div class="row">
+          {{#sections}}
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="key-bg ">
+              <img src="{{logo}}" alt="" loading="lazy" class="img-fluid mx-auto d-block mb-2">
+              <p>{{title}}</p>
+              {{{description}}}
+            </div>
+        </div>
+        {{/sections}}
+
+              </div>
+            </div>
+          </div>
+
+          <!-- -->
+
+   <div class="Accreditation">
+          <div class="container">
+          <div class="row">
+            <div class="col-lg-7">
+              <h2>EACCME Accreditation</h2>
+              <h5>Lorem ipsum dolor sit amet, consectetur adipiscing eli</h5>
+              <div class="mt-5">
+                <p class="pe-5">Aliquam erat volutpat. Donec eleifend ante quis purus consectetur, sit amet malesuada felis venenatis. Maecenas lacus tortor, pharetra in placerat at, fermentum sed erat. Phasellus at orci at mauris ornare pulvinar. Mauris eleifend eros erat, quis rhoncus tortor facilisis ut. Phasellus posuere feugiat turpis, a aliquet ligula venenatis sed. Sed pharetra nisi sit amet ante gravida, vitae rhoncus mi ultrices. Sed venenatis sem nec justo malesuada, lacinia elementum nulla accumsan. Integer in leo eu nisl blandit tincidunt. Cras consectetur aliquam pretium.</p>
+              </div>
+            </div>
+            <div class="col-lg-5" style="position:revert">
+              <img src="{{config.wwwroot}}/theme/boost/layout/images/accreditation.png" alt="" class="img-fluid">
+            </div>
+          </div>
+          </div>
+        </div> 
+
+<!-- -->
+<div class="form-section mt-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card p-3 border-0" >      
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active"  data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true" style="background:{{themecolor}}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " data-toggle="tab" href="#chicken" role="tab" aria-controls="chicken" aria-selected="false" style="background:{{themecolor}}">Registration</a>
+        </li>
+       
+      </ul>
+      <div class="tab-content mt-3">
+        <div class="tab-pane active" id="login" role="tabpanel" aria-labelledby="login-tab">
+         <div class="row justify-content-center m-0">
+                        <div class="col-lg-12">
+                          <div class="login-title">
+                          <h2 class="mb-2">Login</h2>
+                          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        </div>
+                        <!--  -->
+                        <div class="login-content mt-3 lg-mt-5">
+                          <form action="{{{config.wwwroot}}}/login/index.php" method="POST" autocomplete="off">
+                            <span style="color:red;">{{errmsg}}</span>
+                            <div class="form-group">
+                            <input type="hidden" name="sesskey" value="{{sesskey}}">
+                              <label for="username" class="required">Username</label>
+                              <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="User name">
+                              <small id="emailHelp" class="form-text text-muted d-none">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                              <label for="password" class="mt-4 required">Password</label>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" >
+                                <label class="form-check-label" for="flexCheckChecked">Remember me?</label>
+                              </div>
+                              <div class="forgot">
+                                <a href="{{{config.wwwroot}}}/login/forgot_password.php"><p>Forgot password?</p></a>
+                              </div>
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                              <button class="btn login-btn" type="submit" style="background:{{themecolor}}">Login</button>
+                            </div>
+                          </form>
+                        </div>
+                        </div>
+                      </div>
+        </div>
+        <div class="tab-pane " id="chicken" role="tabpanel" aria-labelledby="chicken-tab">
+            <div class="row justify-content-center m-0">
+                        <div class="col-lg-12">
+                          <div class="registration-title">
+                          <h2 class="mb-2">Registration</h2>
+                          
+                        </div>
+                        <!--  -->
+                        <div class="registration-content mt-2">
+                          <form>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1" class="required">Email Address</label>
+                                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email ">
+                                  <small id="emailHelp" class="form-text text-muted d-none">We'll never share your email with anyone else.</small>
+                                </div>
+                              </div>
+                            
+                            
+                                <div class="col-lg-6">
+                            <div class="form-group">
+                              <label for="exampleInputPassword1" class="required">Name and Surname</label>
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Name and Surname">
+                            </div>
+                          </div>
+
+                            <div class="col-lg-6">
+                            <div class="form-group">
+                              <label for="exampleInputPassword1" class="required">Password</label>
+                              <input type="password" class="form-control" id="exampleInputPassword12" placeholder="Password">
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6">
+                            <div class="d-flex justify-content-start align-items-end h-100">
+                              
+                              <div class="strong mb-2">
+                                <p class="mb-0">strong</p>
+                              </div>
+                            </div>
+                          </div>
+                           
+                            <div class="profession col-lg-12">
+                              <h6>Profession</h6>
+                              <div class="row m-0">
+                                <div class="col-lg-6 p-0">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
+                                  <label class="form-check-label" for="flexCheckChecked">Lead of a Clinical Unit</label>
+                                </div>
+                              </div>
+                         
+                              <div class="col-lg-6 p-0">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3">
+                                  <label class="form-check-label" for="flexCheckChecked">Doctor (including medical student)</label>
+                                </div>
+                              </div>
+                          
+                              <div class="col-lg-6 p-0">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4">
+                                  <label class="form-check-label" for="flexCheckChecked">Nurse / Nurse Assistant</label>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-6 p-0">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked6">
+                                  <label class="form-check-label" for="flexCheckChecked">Cleaning Personnel</label>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-6 p-0">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked7">
+                                  <label class="form-check-label" for="flexCheckChecked">Other</label>
+                                </div>
+                              </div>
+
+                              </div>
+                              <!-- row -->
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                  <p class="fw-bold">Which language for the Team-COACH modules? Please consider that the content available in the platform will be in the language that you select here!</p>
+                                </div>
+                                </div>
+                                <div class="row align-items-end">
+                                <div class="col-lg-8">
+                                  <select class="form-select mt-2" aria-label="Default select example">
+                                    <option selected>Select Language</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                  </select>
+                                </div>
+                                <div class="col-lg-8">
+                                  <div class="form-group mt-2">
+                                    <label for="exampleInputPassword1" class="Place-of-work required">Place of work</label>
+                                    <input type="text" class="form-control mb-0" id="exampleInputPassword21" placeholder="Place of work">
+                                  </div>
+                                </div>
+                                </div>
+                                <div class="row mt-2">
+                                <div class="col-lg-12">
+                                  <div class="form-check mb-0 consent">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked8">
+                                    <label class="form-check-label mb-0" for="flexCheckChecked">I give consent to the use of my personal data for…</label>
+                                  </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="information mt-1">
+                                    (*) IMPORTANT: this information is required to get EACCME credits from the Team-COACH training to the user. The user can choose to have an anonymous ID to login and to not provide the email address, but in this case Team-COACH will not provide EACCME credits.
+                                  </div>
+                                </div>
+                                <div class="col-lg-8 mx-auto">
+                                  <div class="d-grid gap-2 mt-4">
+                                    <button class="btn register-btn" type="button">Register</button>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            </div>
+                        
+                          </div>
+                          <!-- row -->
+                          </form>
+                        </div>
+                        </div>
+                      </div>
+        </div>
+       
+      </div>
+                </div>
+              </div>
+              <!--  -->
+              <div class="col-lg-6">
+                  <div class="login-bg"> 
+                    <div class="bg-circle"></div>
+                    <div class="bg-circle bg-circle-1"></div>
+                    <div class="bg-circle bg-circle-2"></div>
+                    <div class="bg-circle bg-circle-3"></div>
+                    <div class="bg-circle bg-circle-4"></div>
+                    <img src="{{config.wwwroot}}/theme/boost/layout/images/log.png" alt="" loading="lazy" class="img-fluid rect-bg-2">
+
+                  </div>
+                  
+                 
+              </div>
+            </div>
+          </div>
+        </div>
+             <!--  -->
+
+      <div class="get-in-touch mt-3 lg-mt-5">
+          <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10" style="position:revert;">
+              <div class="details-form">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="title mb-4">
+                        <h2>Get In Touch</h2>
+                        <p class="mb-0">We are here for you! How can we help?</p>
+                      </div>
+                          <form>
+                            <div class="form-group">
+                              <input type="text" class="form-control" id="exampleInputPassword11" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                              <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter your email address">
+                            </div>
+                            <div class="form-group">
+                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Go ahead, We are listening..."></textarea>
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                              <button class="btn get-in-touch-btn" type="button" style="background:{{themecolor}}">Login</button>
+                            </div>
+                           
+                          </form>
+                        
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="">
+                        <img src="{{config.wwwroot}}/theme/boost/layout/images/leaf-women.png" class="img-fluid mx-auto d-block" alt="">
+                      </div>
+                      <div class="mt-2">
+                        <div class="form-check mt-4">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked9">
+                          <label class="form-check-label" for="flexCheckChecked">If you wish to contact us using the form below, please, have a look at our <a href="#">Privacy Policy</a></label>
+                        </div>
+                        <div class="form-check mt-3">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                          <label class="form-check-label" for="flexCheckChecked">I declare that I have read and understood the <a href="#">Privacy Notice</a></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="shape"></div>
+              <!-- details-form -->
+            </div>
+          </div>
+        </div>
+    
+      </div>
+        <!--  -->
+
+
+
+
+
+
+
+         <!--  -->
+              </div>
+
+                    {{{ output.course_content_header }}}
+                    {{{ output.main_content }}}
+                   <!-- {{{ output.activity_navigation }}}-->
+                    {{{ output.course_content_footer }}}
+    {{{ output.standard_after_main_region_html }}}
+    {{> theme_boost/footer-teamfrontpage }}
+</div>
+
+</body>
+</html>
+{{#js}}
+M.util.js_pending('theme_boost/loader');
+require(['theme_boost/loader'], function() {
+    M.util.js_complete('theme_boost/loader');
+});
+
+M.util.js_pending('theme_boost/drawer');
+require(['theme_boost/drawer'], function(drawer) {
+    drawer.init();
+    M.util.js_complete('theme_boost/drawer');
+});
+M.util.js_pending('theme_boost/dropdown');
+require(['theme_boost/dropdown'], function(dropdown) {
+    dropdown.init();
+    M.util.js_complete('theme_boost/dropdown');
+});
+{{/js}}

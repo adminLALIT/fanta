@@ -32,13 +32,18 @@ require_once($CFG->dirroot .'/course/lib.php');
 require_once($CFG->libdir .'/filelib.php');
 
 redirect_if_major_upgrade_required();
+$redirect = optional_param('redirect', 1, PARAM_BOOL);
 
 $urlparams = array();
 if (!empty($CFG->defaulthomepage) && ($CFG->defaulthomepage == HOMEPAGE_MY) && optional_param('redirect', 1, PARAM_BOOL) === 0) {
     $urlparams['redirect'] = 0;
 }
+
 $PAGE->set_url('/', $urlparams);
-$PAGE->set_pagelayout('frontpage_team');
+if ($redirect) {
+    # code...
+    $PAGE->set_pagelayout('frontpage_team');
+}
 $PAGE->set_other_editing_capability('moodle/course:update');
 $PAGE->set_other_editing_capability('moodle/course:manageactivities');
 $PAGE->set_other_editing_capability('moodle/course:activityvisibility');
