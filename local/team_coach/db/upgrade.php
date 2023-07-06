@@ -161,25 +161,25 @@ function xmldb_local_team_coach_upgrade($oldversion): bool
         }
 
     
-        $table = new xmldb_table('user');   // user is the table which is going to be alter
-        $field = new xmldb_field('profession', XMLDB_TYPE_CHAR, '100', null, null, null, null,
-            'moodlenetprofile'); 
-        $field2 = new xmldb_field('place', XMLDB_TYPE_CHAR, '100', null, null, null, null,
-            'profession'); 
-        $field3 = new xmldb_field('consent', XMLDB_TYPE_INTEGER, '10', null, null, null, 0,
-            'place');
+        // $table = new xmldb_table('user');   // user is the table which is going to be alter
+        // $field = new xmldb_field('profession', XMLDB_TYPE_CHAR, '100', null, null, null, null,
+        //     'moodlenetprofile'); 
+        // $field2 = new xmldb_field('place', XMLDB_TYPE_CHAR, '100', null, null, null, null,
+        //     'profession'); 
+        // $field3 = new xmldb_field('consent', XMLDB_TYPE_INTEGER, '10', null, null, null, 0,
+        //     'place');
         
-        if (!$dbman->field_exists($table, $field)) {
-        $dbman->add_field($table, $field);
-        }
+        // if (!$dbman->field_exists($table, $field)) {
+        // $dbman->add_field($table, $field);
+        // }
     
-        if (!$dbman->field_exists($table, $field2)) {
-        $dbman->add_field($table, $field2);
-        }
+        // if (!$dbman->field_exists($table, $field2)) {
+        // $dbman->add_field($table, $field2);
+        // }
     
-        if (!$dbman->field_exists($table, $field3)) {
-        $dbman->add_field($table, $field3);
-        }
+        // if (!$dbman->field_exists($table, $field3)) {
+        // $dbman->add_field($table, $field3);
+        // }
     
         $table = new xmldb_table('theme_profilefield');
 

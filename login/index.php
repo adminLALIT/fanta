@@ -34,7 +34,9 @@ $testsession = optional_param('testsession', 0, PARAM_INT); // test session work
 $anchor      = optional_param('anchor', '', PARAM_RAW);     // Used to restore hash anchor to wantsurl.
 $username = optional_param('username', '', PARAM_TEXT); //  define username
 $password = optional_param('password', '', PARAM_TEXT); //  define password
-$sesskey = optional_param('sesskey', null, PARAM_RAW);; //  define password
+$sesskey = optional_param('sesskey', null, PARAM_RAW);; //  define sesskey
+$remember = optional_param('remember', 0, PARAM_INT);; //  define sesskey
+
 
 $resendconfirmemail = optional_param('resendconfirmemail', false, PARAM_BOOL);
 purge_caches();
@@ -56,7 +58,7 @@ if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")
 } else {
     $default_record = $DB->get_record('signup_value', []);
     if ($default_record) {
-       
+
         set_config('registerauth', $default_record->signup);
     }
 }
@@ -189,25 +191,25 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
                 print_error('invalidtoken', 'error', $returnurl);
             } else {
                 $logintoken = \core\session\manager::get_login_token();
-
                 $user = authenticate_user_login($username, $password, false, $errorcode, $logintoken);
-
                 if (!$user) {
                     redirect('/');
                 }
             }
             if (empty($username)) {
-
                 redirect('/');
-
             }
             if (empty($password)) {
                 redirect('/');
-
             }
-
+            if (!empty($remember)) {
+                set_config('rememberusername', 1);
+                set_moodle_cookie($username);
+            } else {
+                set_config('rememberusername', 0);
+                set_moodle_cookie('');
+            }
         }
-
     }
 
     // Intercept 'restored' users to provide them with info & reset password

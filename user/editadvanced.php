@@ -170,7 +170,7 @@ if ($userform->is_cancelled()) {
     redirect($returnurl);
 } else if ($usernew = $userform->get_data()) {
     $usercreated = false;
-
+  
     if (empty($usernew->auth)) {
         // User editing self.
         $authplugin = get_auth_plugin($user->auth);

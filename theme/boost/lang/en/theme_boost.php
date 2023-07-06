@@ -58,3 +58,6 @@ $string['unfpassword'] = '';
 $string['uncaccount'] = '';
 $string['logintxttestimonials'] = '';
 $string['unlogin'] = '';
+$string['registersuccess'] = 'Registration Successfully.';
+$string['querysent'] = 'Query Sent Successfully.';
+$string['invalidpassword'] = 'The password must have at least 8 characters, at least 1 digit(s), at least 1 lower case letter(s), at least 1 upper case letter(s), at least 1 special character(s) such as as *, -, or #';

@@ -125,6 +125,51 @@ class auth_plugin_email extends auth_plugin_base {
 
         $user->id = user_create_user($user, false, false);
 
+        if ($user->place) {
+           $fieldid = $DB->get_field('user_info_field', 'id', ['shortname' => 'place']); 
+           $insertrecord = new stdClass();
+           $insertrecord->userid = $user->id;
+           $insertrecord->fieldid = $fieldid;
+           $insertrecord->data = $user->place;
+           $insertrecord->dataformat = 0;
+           $DB->insert_record('user_info_data', $insertrecord);
+        }
+
+        if ($user->policy) {
+           $fieldid = $DB->get_field('user_info_field', 'id', ['shortname' => 'policy']); 
+           $insertrecord = new stdClass();
+           $insertrecord->userid = $user->id;
+           $insertrecord->fieldid = $fieldid;
+           $insertrecord->data = 1;
+           $insertrecord->dataformat = 0;
+           $DB->insert_record('user_info_data', $insertrecord);
+        }
+
+        if ($user->profession) {
+           $fieldid = $DB->get_field('user_info_field', 'id', ['shortname' => 'profession']); 
+           if ($user->clinic) {
+            $datavalue = $user->clinic;
+           }
+           elseif ($user->medical) {
+            $datavalue = $user->medical;
+           }
+           elseif ($user->nurse) {
+            $datavalue = $user->nurse;
+           }
+           elseif ($user->clean) {
+            $datavalue = $user->clean;
+           }
+           elseif ($user->other) {
+            $datavalue = $user->other;
+           }
+           $insertrecord = new stdClass();
+           $insertrecord->userid = $user->id;
+           $insertrecord->fieldid = $fieldid;
+           $insertrecord->data = $datavalue;
+           $insertrecord->dataformat = 0;
+           $DB->insert_record('user_info_data', $insertrecord);
+        }
+
         user_add_password_history($user->id, $plainpassword);
 
         // Save any custom profile field information.

@@ -29,11 +29,34 @@ user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
 require_once($CFG->dirroot . '/local/team_coach/lib.php');
 $query = optional_param('query', '', PARAM_TEXT);
+$regisstatus = optional_param('status', '', PARAM_TEXT);
+$registered = '';
+$msgerror = '';
+
+// Show error.
+if (!empty($regisstatus)) {
+    if ($regisstatus == 'sucess') {
+       $registered = get_string('registersuccess', 'theme_boost');
+   }
+   elseif ($regisstatus == 'invalidpassword') {
+    $msgerror = get_string('invalidpassword', 'theme_boost');
+   }
+   else {
+    $msgerror = get_string($regisstatus);
+   }
+}
 
 if ($query) {
-    $querystatus = 'Query Sent Successfully.';
+    $querystatus = get_string('querysent', 'theme_boost');
 } else {
     $querystatus = '';
+}
+
+$remember = '';
+// Show username if set.
+$saveduser = get_moodle_cookie();
+if (!empty($saveduser)) {
+    $remember = 'checked';
 }
 
 $domain_get = explode('.', @$_SERVER['HTTP_HOST']);
@@ -61,13 +84,26 @@ $themesubanners = [];
 $footercontent = [];
 $bannercontent = [];
 $profilecontent = [];
+$lang = [];
 $place = '';
 $profession = '';
 $policy = '';
+$enableregister = false;
 
 if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {
-    $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");
+
+    // Get theme record.
+    $themerecord = $DB->get_record_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'");  
+    if ($themerecord->signup == 1) {
+        $enableregister = true;
+    }
     $themecolor = $themerecord->theme_color;
+    $language = explode(",", $themerecord->lang);
+    $translations = get_string_manager()->get_list_of_translations();
+    for ($i = 0; $i < count($language); $i++) {
+      $lang[] = ['key' => $language[$i], 'value' => $translations[$language[$i]]];
+    }
+
     $contactuslogo = get_contactus_logo_by_themeid($themerecord->id);
     // Get section data.
     $sectiondata = $DB->get_records('theme_section', ['theme_id' => $themerecord->id], $sort = 'section_index ASC');
@@ -123,16 +159,18 @@ if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")
     // Get profile field data.
     $profilefields = $DB->get_record('theme_profilefield', ['themeid' => $themerecord->id]);
     $fields =  explode(",", $profilefields->profilefield);
+    $place = [];
+    $profession = [];
+    $policy = [];
     if (in_array("place", $fields)) {
-        $place = 'place';
+        $place[] = ['place' => 'place'];
     }
     if (in_array("profession", $fields)) {
-        $profession = 'profession';
+        $profession[] = ['profession' => 'profession'];
     }
     if (in_array("policy", $fields)) {
-        $policy = 'policy';
+        $policy[] = ['policy' => 'policy'];
     }
-    $profilecontent[] = ['place' => $place, 'profession' => $profession, 'policy' => $policy];
 
 } else {
     $themecolor = '#D9B5AF';
@@ -207,6 +245,15 @@ $templatecontext = [
     'status' => $querystatus,
     'contactuslogo' => $contactuslogo,
     'profilecontent' => $profilecontent,
+    'place' => $place,
+    'profession' => $profession,
+    'policy' => $policy,
+    'lang' => $lang,
+    'registered' => $registered,
+    'msgerror' => $msgerror,
+    'enableregister' => $enableregister,
+    'saveduser' => $saveduser,
+    'remember' => $remember
 ];
 $nav = $PAGE->flatnav;
 $templatecontext['flatnavigation'] = $nav;
