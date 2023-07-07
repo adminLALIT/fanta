@@ -61,8 +61,7 @@ $templatecontext = [
 // if ($DB->record_exists('theme_detail', [$urlcolumn => $domain])) {
 if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")) {+
     $themerecord = $DB->get_record_sql("SELECT td.* FROM {theme_detail} td WHERE td.url = '$domain'");
-    $templatecontext['btn_color'] = $themerecord->theme_color;
-    
+     $templatecontext['btn_color'] = $themerecord->theme_color;
     $menurecord = $DB->get_records('menu_configuration',['theme_id' =>$themerecord->id]);
     $menuitems[0] = "";
     if ($menurecord) {

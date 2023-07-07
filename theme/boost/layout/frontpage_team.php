@@ -128,7 +128,7 @@ if ($DB->record_exists_sql("SELECT * FROM {theme_detail} WHERE url = '$domain'")
     if ($subbanners) {
         foreach ($subbanners as $subvalue) {
             $logo_url = get_subbanner_logo_by_bannerid($subvalue->id);
-            $themesubanners[] = ['logo' => $logo_url, 'url' => $subvalue->bannerurl, 'title' => $subvalue->bannertitle, 'text' => $subvalue->bannertext, 'background' => $subvalue->backgroundcolor];
+            $themesubanners[] = ['logo' => $logo_url, 'url' => $subvalue->bannerurl, 'title' => $subvalue->bannertitle, 'text' => $subvalue->bannertext, 'background' => $subvalue->backgroundcolor, 'id' => $subvalue->id];
         }
     }
 

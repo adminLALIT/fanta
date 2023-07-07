@@ -15,7 +15,7 @@ class section_list_form extends table_sql
   {
     parent::__construct($uniqueid);
     // Define the list of columns to show.
-    $columns = array('name', 'section_title', 'section_index', 'section_image',  'action');
+    $columns = array('name', 'section_title', 'section_index', 'section_image', 'action');
     $this->define_columns($columns);
 
     // Define the titles of columns to show in header.

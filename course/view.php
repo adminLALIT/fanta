@@ -285,7 +285,7 @@
     // Note that because of the way course fromats are constructed though
     // inclusion we pass parameters around this way..
     $displaysection = $section;
-
+   
     // Include the actual course format.
     require($CFG->dirroot .'/course/format/'. $course->format .'/format.php');
     // Content wrapper end.
@@ -295,6 +295,7 @@
     // Trigger course viewed event.
     // We don't trust $context here. Course format inclusion above executes in the global space. We can't assume
     // anything after that point.
+ 
     course_view(context_course::instance($course->id), $section);
 
     // Include course AJAX

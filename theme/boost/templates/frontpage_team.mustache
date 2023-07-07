@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="viewmore mb-2 mt-2">
-                      <a href="{{url}}" class="">
+                      <a href="{{{config.wwwroot}}}{{url}}?id={{id}}" class="">
                       <button class="text-end text-white float-right bg-transparent border-0 draw" id="viewmore-btn">VIEW MORE <i class="fa fa-angle-double-right ml-2" aria-hidden="true"></i></button>
                       </a>
                     </div>
@@ -209,7 +209,7 @@
                 <div class="card p-3 border-0" >      
                 <ul class="nav nav-tabs nav-fill" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#duck" role="tab" aria-controls="duck" aria-selected="true" id="nav-home-tab" style="background:{{themecolor}}">Login</a>
+          <a class="nav-link active" data-toggle="tab" href="#duck" role="tab" aria-controls="duck" aria-selected="true" id="nav-home-tab" style="background:{{themecolor}}">{{#str}}login{{/str}}</a>
         </li>
         {{#enableregister}}
         <li class="nav-item">
@@ -223,7 +223,7 @@
          <div class="row justify-content-center m-0">
                         <div class="col-lg-12">
                           <div class="login-title">
-                          <h2 class="mb-2">Login</h2>
+                          <h2 class="mb-2">{{#str}}login{{/str}}</h2>
                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                         </div>
                         <!--  -->
@@ -234,13 +234,13 @@
                             <span style="color:red;">{{errmsg}}</span>
                             <div class="form-group">
                             <input type="hidden" name="sesskey" value="{{sesskey}}">
-                              <label for="username" class="required">Username</label>
-                              <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="User name" value="{{saveduser}}">
+                              <label for="username" class="required">{{#str}}username{{/str}}</label>
+                              <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="{{#str}}username{{/str}}" value="{{saveduser}}">
                               <small id="emailHelp" class="form-text text-muted d-none">We'll never share your email with anyone else.</small>
                             </div>
                             <div class="form-group">
-                              <label for="password" class="mt-4 required">Password</label>
-                              <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                              <label for="password" class="mt-4 required">{{#str}} password{{/str}}</label>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="{{#str}}password{{/str}}">
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                               <div class="form-check">
@@ -248,11 +248,11 @@
                                 <label class="form-check-label" for="remember">Remember me?</label>
                               </div>
                               <div class="forgot">
-                                <a href="{{{config.wwwroot}}}/login/forgot_password.php"><p>Forgot password?</p></a>
+                                <a href="{{{config.wwwroot}}}/login/forgot_password.php"><p>{{#str}}forgotaccount{{/str}}</p></a>
                               </div>
                             </div>
                             <div class="d-grid gap-2 mt-4">
-                              <button class="btn login-btn" type="submit" style="background:{{themecolor}}">Login</button>
+                              <button class="btn login-btn" type="submit" style="background:{{themecolor}}">{{#str}}login{{/str}}</button>
                             </div>
                           </form>
 
@@ -276,37 +276,37 @@
                             <div class="row">
                               <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="email" class="required">Email Address</label>
-                                  <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email" required>
+                                  <label for="email" class="required">{{#str}}email{{/str}}</label>
+                                  <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="{{#str}}email{{/str}}" required>
                                   <small id="emailHelp" class="form-text text-muted d-none">We'll never share your email with anyone else.</small>
                                 </div>
                               </div>
                             
                                 <div class="col-lg-6">
                             <div class="form-group">
-                              <label for="username" class="required">Username</label>
-                              <input type="text" class="form-control" id="getusername" name="getusername" placeholder="Username" required>
+                              <label for="username" class="required">{{#str}}username{{/str}}</label>
+                              <input type="text" class="form-control" id="getusername" name="getusername" placeholder="{{#str}}username{{/str}}" required>
                             </div>
                           </div>
 
                             <div class="col-lg-6">
                             <div class="form-group">
-                              <label for="firstname" class="required">Firstname</label>
-                              <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Firstname" required>
+                              <label for="firstname" class="required">{{#str}}firstname{{/str}}</label>
+                              <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{#str}}firstname{{/str}}" required>
                             </div>
                           </div>
 
                             <div class="col-lg-6">
                             <div class="form-group">
-                              <label for="lastname" class="required">Lastname</label>
-                              <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Lastname">
+                              <label for="lastname" class="required">{{#str}}lastname{{/str}}</label>
+                              <input type="text" class="form-control" id="lastname" name="lastname" placeholder="{{#str}}lastname{{/str}}">
                             </div>
                           </div>
 
                             <div class="col-lg-6">
                             <div class="form-group">
-                              <label for="confirmpassword" class="required">Password</label>
-                              <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Password" required>
+                              <label for="confirmpassword" class="required">{{#str}}password{{/str}}</label>
+                              <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="{{#str}}password{{/str}}" required>
                               <span toggle="#confirmpassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
                           </div>
@@ -362,7 +362,7 @@
                                 <div class="row align-items-end">
                                 <div class="col-lg-8">
                                   <select class="form-select mt-2" aria-label="Default select example" name="lang">
-                                    <option selected>Select Language</option>
+                                    <option selected>{{#str}}preferredlanguage{{/str}}</option>
                                     {{#lang}}
                                     <option value="{{key}}">{{value}}</option>
                                     {{/lang}}
@@ -457,7 +457,7 @@
                               <textarea class="form-control" id="query" name="query" rows="5" placeholder="Go ahead, We are listening..." required></textarea>
                             </div>
                             <div class="d-grid gap-2 mt-4">
-                              <button class="btn get-in-touch-btn" type="submit" style="background:{{themecolor}};">Submit</button>
+                              <button class="btn get-in-touch-btn" type="submit" style="background:{{themecolor}};">{{#str}}submit{{/str}}</button>
                             </div>
                     </div>
                     <div class="col-lg-6">

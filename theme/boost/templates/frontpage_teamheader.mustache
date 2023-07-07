@@ -31,10 +31,10 @@
     <div class="ml-auto d-flex">
       <nav id="navbar" class="navbar">
         <ul class="">
-          <li><a href="#Home">HOME</a></li>
-          <li><a href="#login">LOGIN</a></li>
-          <li><a href="#">COURSE CATALOGUE</a></li>
-          <li><a href="#contact">CONTACT US</a></li>
+          <li><a href="#Home">{{#str}}home{{/str}}</a></li>
+          <li><a href="#login">{{#str}}login{{/str}}</a></li>
+          <li><a href="#">{{#str}}course{{/str}}</a></li>
+          <li><a href="#contact">Contact Us</a></li>
         </ul>
       </nav><!-- .navbar -->
           {{! <form class="example" action="#" style="margin:auto;max-width:300px">
@@ -43,7 +43,7 @@
           </form> }}
         <ul>
           <form class="example" action="{{{config.wwwroot}}}/course/search.php" id="coursesearch" method="get" style="margin:auto;max-width:300px">
-            <input id="coursesearchbox" class="headerinputsearch" name="q" type="text" size="30" value="" placeholder="search">
+            <input id="coursesearchbox" class="headerinputsearch" name="q" type="text" size="30" value="" placeholder="{{#str}}search{{/str}}">
             <input name="areaids" type="hidden" value="core_course-course" >
             <button class="btn btn-secondary headergobtn" type="submit" style="background:{{themecolor}};"><i class="fa fa-search"></i></button>
           </form>

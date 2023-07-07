@@ -45,7 +45,8 @@ class section_form extends moodleform {
         $select_theme = array('' => 'Select') + $select_theme;
         
         $mform->addElement('hidden', 'sectionid', $id);
-
+        $mform->setType('sectionid', PARAM_INT);
+        
         $mform->addElement('select', 'theme_id', get_string('select_theme', 'local_team_coach'), $select_theme);
         $mform->addRule('theme_id', get_string('required'), 'required', null, 'server');
 

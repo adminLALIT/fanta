@@ -22,6 +22,7 @@ class content_list extends table_sql
     $headers = array('Theme', 'Title', 'Index', 'Action');
     $this->define_headers($headers);
   }
+  
 
   /**
    * This function is called for each data row to allow processing of the

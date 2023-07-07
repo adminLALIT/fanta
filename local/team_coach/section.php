@@ -50,7 +50,7 @@ $PAGE->set_heading('Manage Section');
 
 $editoroptions = array(
     'maxfiles' => 1,
-    'maxbytes' => 262144, 'subdirs' => 0, 'context' => $context, 'accepted_types' => array('web_image')
+    'maxbytes' => 262144, 'subdirs' => 0, 'context' => $context, 'noclean' => 0, 'accepted_types' => array('web_image')
 );
 
 if ($id) {
@@ -122,8 +122,7 @@ if ($mform->is_cancelled()) {
         $fromform->time_modified = time();
         if ($fromform->descrip_editor) {
             $data = file_postupdate_standard_editor($fromform, 'descrip', $editoroptions, context_system::instance(), 'local_team_coach', 'descrip', $fromform->sectionid);
-            // var_dump($data);
-            // die;
+          
             $DB->set_field('theme_section', 'descrip', $data->descrip, array('id'=>$fromform->sectionid));
             $DB->set_field('theme_section', 'descformat', $data->descripformat, array('id'=>$fromform->sectionid));
         }
